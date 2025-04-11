@@ -1,8 +1,8 @@
 // src/components/ProductCard/ProductCard.tsx
-import { Product } from '../../types';
-import { useWeb3 } from '../../context/Web3Context';
 import { useState } from 'react';
-import { parseEther } from 'ethers';
+import { ethers } from 'ethers';  // aggiungiamo l'import di ethers
+import { useWeb3 } from '../../context/Web3Context';
+import { Product } from '../../types';
 import { GIANNI_WALLET_ADDRESS } from '../../constants';
 
 interface ProductCardProps {
@@ -26,12 +26,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
     try {
       const tx = await signer.sendTransaction({
         to: GIANNI_WALLET_ADDRESS,
-        value: parseEther(product.price)
+        value: ethers.parseEther(product.price)
       });
 
       await tx.wait();
       // Qui potremmo aggiungere una notifica di successo
-      // o reindirizzare alla pagina di successo
     } catch (err) {
       setError('Transaction failed. Please try again.');
       console.error(err);
@@ -41,7 +40,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-[1.02]">
       <div className="relative pb-[60%]">
         <img
           src={product.image}
@@ -51,6 +50,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
       </div>
       
       <div className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm">
+            {product.duration}
+          </span>
+          <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
+            {product.location}
+          </span>
+        </div>
+
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
           {product.name}
         </h3>
@@ -69,11 +77,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
             disabled={!isConnected || isLoading}
             className={`px-6 py-2 rounded-lg text-white font-medium transition-colors duration-200
               ${isConnected 
-                ? 'bg-purple-600 hover:bg-purple-700' 
-                : 'bg-gray-400 cursor-not-allowed'
+                ? 'bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600' 
+                : 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed'
               } ${isLoading ? 'opacity-75 cursor-wait' : ''}`}
           >
-            {isLoading ? 'Processing...' : 'Buy Now'}
+            {isLoading ? 'Processing...' : 'Book Now'}
           </button>
         </div>
 
