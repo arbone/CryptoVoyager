@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// src/App.tsx
+import { Web3Provider } from './context/Web3Context';
+import Layout from './components/Layout/Layout';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Web3Provider>
+      <Layout>
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Welcome to Sustainable Travel
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300">
+            Explore our eco-friendly travel packages
+          </p>
+        </div>
+      </Layout>
+    </Web3Provider>
   );
 }
 
