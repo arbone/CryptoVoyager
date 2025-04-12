@@ -1,5 +1,5 @@
 // src/pages/Home/Home.tsx
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { PRODUCTS } from '../../constants';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import FilterBar from '../../components/FilterBar/FilterBar';
@@ -7,7 +7,7 @@ import SortBar from '../../components/SortBar/SortBar';
 import { FilterOptions } from '../../types';
 import './Home.css';
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_LOAD = 6;
 
 const Home: React.FC = () => {
   const [filters, setFilters] = useState<FilterOptions>({
@@ -16,8 +16,11 @@ const Home: React.FC = () => {
     duration: null,
     location: null
   });
-  const [currentPage, setCurrentPage] = useState(1);
+  
+  const [visibleItems, setVisibleItems] = useState(ITEMS_PER_LOAD);
   const [sortBy, setSortBy] = useState('default');
+  const loaderRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const locations = useMemo(() => {
     const locationSet = new Set<string>();
@@ -43,7 +46,6 @@ const Home: React.FC = () => {
       return true;
     });
 
-    // Sorting
     switch (sortBy) {
       case 'price-asc':
         result.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
@@ -61,17 +63,37 @@ const Home: React.FC = () => {
     return result;
   }, [filters, sortBy]);
 
-  // Pagination
-  const totalPages = Math.ceil(filteredAndSortedProducts.length / ITEMS_PER_PAGE);
-  const paginatedProducts = filteredAndSortedProducts.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
+  // Reset visible items when filters change
+  useEffect(() => {
+    setVisibleItems(ITEMS_PER_LOAD);
+  }, [filters, sortBy]);
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  // Infinite scroll logic
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isLoading || visibleItems >= filteredAndSortedProducts.length) return;
+
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+
+      // If we're near the bottom (100px threshold)
+      if (windowHeight + scrollTop >= documentHeight - 100) {
+        setIsLoading(true);
+        
+        // Simulate loading delay
+        setTimeout(() => {
+          setVisibleItems(prev => Math.min(prev + ITEMS_PER_LOAD, filteredAndSortedProducts.length));
+          setIsLoading(false);
+        }, 800);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [visibleItems, filteredAndSortedProducts.length, isLoading]);
+
+  const currentProducts = filteredAndSortedProducts.slice(0, visibleItems);
 
   return (
     <div className="home-container">
@@ -94,31 +116,24 @@ const Home: React.FC = () => {
       </div>
 
       <section className="products-section">
-        {paginatedProducts.length === 0 ? (
+        {currentProducts.length === 0 ? (
           <div className="no-products">
             No products match your filters
           </div>
         ) : (
           <>
             <div className="products-grid">
-              {paginatedProducts.map((product) => (
+              {currentProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
             
-            {totalPages > 1 && (
-              <div className="pagination">
-                {[...Array(totalPages)].map((_, index) => (
-                  <button
-                    key={index + 1}
-                    onClick={() => handlePageChange(index + 1)}
-                    className={`pagination-button ${
-                      currentPage === index + 1 ? 'active' : ''
-                    }`}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
+            {(isLoading || visibleItems < filteredAndSortedProducts.length) && (
+              <div 
+                ref={loaderRef}
+                className="loader"
+              >
+                Loading more experiences...
               </div>
             )}
           </>
