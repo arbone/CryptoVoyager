@@ -1,8 +1,9 @@
+// src/components/WalletConnect/WalletConnect.tsx
 import React from 'react';
 import './WalletConnect.css';
 import { useWeb3 } from '../../context/Web3Context';
 
-const WalletConnect = () => {
+export const WalletConnect = () => {
   const { account, balance, connectWallet, isConnected } = useWeb3();
 
   return (
@@ -13,7 +14,9 @@ const WalletConnect = () => {
             <span>{balance?.substring(0, 6)} ETH</span>
           </div>
           <div className="address">
-            <span>{account?.substring(0, 6)}...{account?.substring(account.length - 4)}</span>
+            <span>
+              {account?.substring(0, 6)}...{account?.substring(account.length - 4)}
+            </span>
           </div>
         </div>
       ) : (
@@ -24,5 +27,3 @@ const WalletConnect = () => {
     </div>
   );
 };
-
-export default WalletConnect;

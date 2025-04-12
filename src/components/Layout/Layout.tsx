@@ -1,6 +1,6 @@
 // src/components/Layout/Layout.tsx
 import { ReactNode } from 'react';
-import WalletConnect from '../WalletConnect/WalletConnect';
+import { WalletConnect } from '../WalletConnect/WalletConnect';
 
 interface LayoutProps {
   children: ReactNode;
@@ -29,6 +29,6 @@ const Layout = ({ children }: LayoutProps) => {
       </main>
     </div>
   );
-}
+};
 
 export default Layout;

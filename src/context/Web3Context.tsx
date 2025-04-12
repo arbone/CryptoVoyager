@@ -1,8 +1,7 @@
 // src/context/Web3Context.tsx
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { BrowserProvider, JsonRpcSigner, formatEther } from 'ethers';
 
-// Aggiungiamo la dichiarazione del tipo window.ethereum
 declare global {
   interface Window {
     ethereum?: any;
@@ -18,7 +17,16 @@ interface Web3ContextType {
   signer: JsonRpcSigner | null;
 }
 
-const Web3Context = createContext<Web3ContextType>({} as Web3ContextType);
+const defaultContextValue: Web3ContextType = {
+  account: null,
+  balance: null,
+  connectWallet: async () => {},
+  isConnected: false,
+  provider: null,
+  signer: null
+};
+
+const Web3Context = createContext<Web3ContextType>(defaultContextValue);
 
 export const Web3Provider = ({ children }: { children: ReactNode }) => {
   const [account, setAccount] = useState<string | null>(null);
@@ -50,7 +58,6 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     if (window.ethereum) {
       window.ethereum.on('accountsChanged', (accounts: string[]) => {
         setAccount(accounts[0] || null);
-        // Riconnetti il wallet quando cambia l'account
         connectWallet();
       });
     }
@@ -63,14 +70,16 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <Web3Context.Provider value={{
-      account,
-      balance,
-      connectWallet,
-      isConnected: !!account,
-      provider,
-      signer
-    }}>
+    <Web3Context.Provider 
+      value={{
+        account,
+        balance,
+        connectWallet,
+        isConnected: !!account,
+        provider,
+        signer
+      }}
+    >
       {children}
     </Web3Context.Provider>
   );

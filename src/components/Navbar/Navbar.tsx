@@ -1,6 +1,7 @@
+// src/components/Navbar/Navbar.tsx
 import React from 'react';
 import './Navbar.css';
-import WalletConnect from '../WalletConnect/WalletConnect';
+import { WalletConnect } from '../WalletConnect/WalletConnect';
 
 export const Navbar = () => {
   return (
