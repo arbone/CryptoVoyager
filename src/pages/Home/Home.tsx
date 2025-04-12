@@ -1,12 +1,13 @@
 // src/pages/Home/Home.tsx
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { PRODUCTS } from '../../constants';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import FilterBar from '../../components/FilterBar/FilterBar';
-import { FilterOptions, Product } from '../../types';
+import { FilterOptions } from '../../types';
 import './Home.css';
 
-const Home = () => {
+const Home: React.FC = () => {
+  const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<FilterOptions>({
     category: null,
     priceRange: null,
@@ -14,7 +15,14 @@ const Home = () => {
     location: null
   });
 
-  // Extract unique locations and categories
+  useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, [filters]);
+
   const locations = useMemo(() => {
     const locationSet = new Set<string>();
     PRODUCTS.forEach(p => locationSet.add(p.location));
@@ -27,7 +35,6 @@ const Home = () => {
     return Array.from(categorySet);
   }, []);
 
-  // Filter products based on selected filters
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter(product => {
       if (filters.category && product.category !== filters.category) return false;
@@ -43,7 +50,6 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {/* Hero Section */}
       <section className="hero-section">
         <h1 className="hero-title">
           Sustainable Travel Experiences
@@ -53,23 +59,35 @@ const Home = () => {
         </p>
       </section>
 
-      {/* Filters */}
       <FilterBar 
         onFilterChange={setFilters}
         locations={locations}
         categories={categories}
       />
 
-      {/* Products Grid */}
       <section className="products-section">
-        {filteredProducts.length === 0 ? (
+        {loading ? (
+          <div className="products-grid">
+            {[...Array(6)].map((_, index) => (
+              <ProductCard 
+                key={`skeleton-${index}`} 
+                product={PRODUCTS[0]} 
+                loading={true}
+              />
+            ))}
+          </div>
+        ) : filteredProducts.length === 0 ? (
           <div className="no-products">
             No products match your filters
           </div>
         ) : (
           <div className="products-grid">
             {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard 
+                key={product.id} 
+                product={product}
+                loading={false}
+              />
             ))}
           </div>
         )}

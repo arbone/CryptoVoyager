@@ -180,4 +180,66 @@
       gap: 8px;
     }
   }
+
+ /* src/components/ProductCard/ProductCard.css */
+/* ... stili esistenti ... */
+
+.skeleton {
+    background: var(--skeleton-bg);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -150%;
+    bottom: 0;
+    left: -150%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--skeleton-shine) 50%,
+      transparent 100%
+    );
+    animation: shimmer 1.5s infinite;
+  }
+  
+  .skeleton.product-image {
+    height: 200px;
+    width: 100%;
+  }
+  
+  .skeleton.product-tag {
+    width: 80px;
+    height: 24px;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+  
+  .skeleton.product-title {
+    height: 24px;
+    margin: 16px 0;
+    width: 80%;
+  }
+  
+  .skeleton.product-description {
+    height: 60px;
+    margin: 12px 0;
+  }
+  
+  .skeleton.product-footer {
+    height: 40px;
+    margin-top: 16px;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
   
