@@ -1,5 +1,6 @@
 // src/components/ProductCard/ProductCard.tsx
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import './ProductCard.css';
 import { Product } from '../../types';
 
@@ -58,38 +59,62 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
   }
 
   return (
-    <div
-      ref={cardRef}
-      className="product-card"
-      style={{
-        opacity: 0,
-        transform: 'translateY(20px)',
-        transition: 'all 0.5s ease',
-        transitionDelay: `${index * 0.1}s`
-      }}
+    <Link 
+      to={`/product/${product.id}`} 
+      className="product-card-link"
+      style={{ textDecoration: 'none', color: 'inherit' }}
     >
-      <div className="product-image-container">
-        <img 
-          src={product.image} 
-          alt={product.name} 
-          className="product-image"
-          loading="lazy"
-        />
-      </div>
-      
-      <div className="product-content">
-        <div className="product-tags">
-          <span className="product-tag tag-location">{product.location}</span>
-          <span className="product-tag tag-category">{product.category}</span>
+      <div
+        ref={cardRef}
+        className="product-card"
+        style={{
+          opacity: 0,
+          transform: 'translateY(20px)',
+          transition: 'all 0.5s ease',
+          transitionDelay: `${index * 0.1}s`
+        }}
+      >
+        <div className="product-image-container">
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className="product-image"
+            loading="lazy"
+          />
+          {product.sustainabilityScore && (
+            <div className="sustainability-badge">
+              {"⭐".repeat(product.sustainabilityScore)}
+            </div>
+          )}
         </div>
-        <h3 className="product-title">{product.name}</h3>
-        <p className="product-description">{product.description}</p>
-        <div className="product-footer">
-          <span className="product-price">{product.price} ETH</span>
-          <button className="book-button">Book Now</button>
+
+        <div className="product-content">
+          <div className="product-tags">
+            <span className="product-tag tag-location">{product.location}</span>
+            <span className="product-tag tag-category">{product.category}</span>
+          </div>
+
+          <h3 className="product-title">{product.name}</h3>
+          <p className="product-description">{product.description}</p>
+
+          <div className="product-footer">
+            <span className="product-price">{product.price} ETH</span>
+            <div className="product-actions">
+              <span className="product-duration">{product.duration}</span>
+              <button 
+                className="book-button"
+                onClick={(e) => {
+                  e.preventDefault(); // Previene la navigazione del Link
+                  // Qui puoi aggiungere la logica per il booking
+                }}
+              >
+                Book Now
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
