@@ -4,6 +4,7 @@ import { PRODUCTS } from '../../constants';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import FilterBar from '../../components/FilterBar/FilterBar';
 import { FilterOptions, Product } from '../../types';
+import './Home.css';
 
 const Home = () => {
   const [filters, setFilters] = useState<FilterOptions>({
@@ -19,7 +20,7 @@ const Home = () => {
     PRODUCTS.forEach(p => locationSet.add(p.location));
     return Array.from(locationSet);
   }, []);
-  
+
   const categories = useMemo(() => {
     const categorySet = new Set<string>();
     PRODUCTS.forEach(p => categorySet.add(p.category));
@@ -41,13 +42,13 @@ const Home = () => {
   }, [filters]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="home-container">
       {/* Hero Section */}
-      <section className="text-center py-12">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      <section className="hero-section">
+        <h1 className="hero-title">
           Sustainable Travel Experiences
         </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        <p className="hero-subtitle">
           Discover eco-friendly travel packages that make a positive impact
         </p>
       </section>
@@ -60,13 +61,13 @@ const Home = () => {
       />
 
       {/* Products Grid */}
-      <section className="mt-8">
+      <section className="products-section">
         {filteredProducts.length === 0 ? (
-          <div className="text-center py-12 text-gray-600 dark:text-gray-400">
+          <div className="no-products">
             No products match your filters
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="products-grid">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

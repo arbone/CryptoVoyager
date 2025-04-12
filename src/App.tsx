@@ -1,16 +1,17 @@
-// src/App.tsx
-import { Web3Provider } from './context/Web3Context';
-import Layout from './components/Layout/Layout';
+import React from 'react';
+import { Navbar } from './components/Navbar/Navbar';
 import Home from './pages/Home/Home';
+import './styles/global.css';
 
-function App() {
+const App = () => {
   return (
-    <Web3Provider>
-      <Layout>
+    <div className="app">
+      <Navbar />
+      <main className="main">
         <Home />
-      </Layout>
-    </Web3Provider>
+      </main>
+    </div>
   );
-}
+};
 
 export default App;
