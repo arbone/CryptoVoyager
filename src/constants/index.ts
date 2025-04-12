@@ -1,14 +1,29 @@
 // src/constants/index.ts
 import { Product } from '../types';
 
-export const GIANNI_WALLET_ADDRESS = "0xYourWalletAddress"; // Sostituisci con il tuo indirizzo
+// src/constants/index.ts
+export const SUPPORTED_CHAIN_ID = 11155111; // Sepolia chain ID
+export const GIANNI_WALLET_ADDRESS = "0x76CFa7a879d03DC38229E8D087Bfe0476D6e4150"; // Inserisci qui l'indirizzo del wallet di Gianni
+
+export const NETWORK_CONFIG = {
+  chainId: SUPPORTED_CHAIN_ID,
+  chainName: 'Sepolia',
+  nativeCurrency: {
+    name: 'ETH',
+    symbol: 'ETH',
+    decimals: 18
+  },
+  rpcUrls: ['https://sepolia.infura.io/v3/YOUR-PROJECT-ID'], // Sostituisci con il tuo Project ID
+  blockExplorerUrls: ['https://sepolia.etherscan.io']
+};
+
 
 export const PRODUCTS: Product[] = [
   {
     id: 1,
     name: "Costa Rica Eco Adventure",
     description: "Explore pristine rainforests and contribute to local conservation efforts in Costa Rica.",
-    price: "0.5",
+    price: "0.01",
     image: "https://images.unsplash.com/photo-1536514072410-5019a3c69182",
     duration: "7 days",
     location: "Costa Rica",

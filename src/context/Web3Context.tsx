@@ -4,14 +4,18 @@ import { ethers } from 'ethers';
 import { GIANNI_WALLET_ADDRESS } from '../constants';
 import { TransactionStatus } from '../types';
 
+const SEPOLIA_CHAIN_ID = 11155111;
+
 interface Web3ContextType {
   isConnected: boolean;
   account: string | null;
   balance: string | null;
+  chainId: number | null;
   connectWallet: () => Promise<void>;
   disconnectWallet: () => void;
   purchaseProduct: (price: string, productId: number) => Promise<TransactionStatus>;
   isProcessing: boolean;
+  switchToSepolia: () => Promise<void>;
 }
 
 const Web3Context = createContext<Web3ContextType>({} as Web3ContextType);
@@ -23,11 +27,44 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
   const [account, setAccount] = useState<string | null>(null);
   const [balance, setBalance] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [chainId, setChainId] = useState<number | null>(null);
 
   const updateBalance = async (address: string) => {
     const provider = new ethers.BrowserProvider(window.ethereum);
     const balance = await provider.getBalance(address);
     setBalance(ethers.formatEther(balance));
+  };
+
+  const switchToSepolia = async () => {
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: `0x${SEPOLIA_CHAIN_ID.toString(16)}` }],
+      });
+    } catch (error: any) {
+      if (error.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [{
+              chainId: `0x${SEPOLIA_CHAIN_ID.toString(16)}`,
+              chainName: 'Sepolia Test Network',
+              nativeCurrency: {
+                name: 'ETH',
+                symbol: 'ETH',
+                decimals: 18
+              },
+              rpcUrls: ['https://sepolia.infura.io/v3/'],
+              blockExplorerUrls: ['https://sepolia.etherscan.io']
+            }]
+          });
+        } catch (addError) {
+          throw new Error('Impossibile aggiungere la rete Sepolia');
+        }
+      } else {
+        throw error;
+      }
+    }
   };
 
   const connectWallet = async () => {
@@ -39,6 +76,12 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
       const accounts = await window.ethereum.request({ 
         method: 'eth_requestAccounts' 
       });
+
+      const currentChainId = await window.ethereum.request({ 
+        method: 'eth_chainId' 
+      });
+      
+      setChainId(parseInt(currentChainId, 16));
 
       const account = accounts[0];
       setAccount(account);
@@ -55,11 +98,15 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
     setAccount(null);
     setBalance(null);
     setIsConnected(false);
+    setChainId(null);
   };
 
   const purchaseProduct = async (price: string, productId: number): Promise<TransactionStatus> => {
     if (!account) return { status: 'error', message: 'Wallet non connesso' };
     if (isProcessing) return { status: 'error', message: 'Transazione in corso' };
+    if (chainId !== SEPOLIA_CHAIN_ID) {
+      return { status: 'error', message: 'Per favore, passa alla rete Sepolia per continuare' };
+    }
 
     setIsProcessing(true);
     try {
@@ -109,8 +156,8 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     };
 
-    const handleChainChanged = () => {
-      window.location.reload();
+    const handleChainChanged = (chainId: string) => {
+      setChainId(parseInt(chainId, 16));
     };
 
     window.ethereum.on('accountsChanged', handleAccountsChanged);
@@ -126,6 +173,11 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
           setAccount(account);
           setIsConnected(true);
           await updateBalance(account);
+
+          const chainId = await window.ethereum.request({ 
+            method: 'eth_chainId' 
+          });
+          setChainId(parseInt(chainId, 16));
         }
       } catch (error) {
         console.error('Errore durante il controllo della connessione:', error);
@@ -145,10 +197,12 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
       isConnected,
       account,
       balance,
+      chainId,
       connectWallet,
       disconnectWallet,
       purchaseProduct,
-      isProcessing
+      isProcessing,
+      switchToSepolia
     }}>
       {children}
     </Web3Context.Provider>

@@ -1,14 +1,24 @@
-// src/pages/ProductDetail/ProductDetail.tsx
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useWeb3 } from '../../context/Web3Context';
 import { PRODUCTS } from '../../constants';
 import './ProductDetail.css';
 
+const SEPOLIA_CHAIN_ID = 11155111;
+
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { isConnected, account, balance, purchaseProduct, isProcessing } = useWeb3();
+  const { 
+    isConnected, 
+    account, 
+    balance, 
+    purchaseProduct, 
+    isProcessing,
+    chainId,
+    switchToSepolia 
+  } = useWeb3();
+  
   const [error, setError] = useState<string | null>(null);
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -25,12 +35,23 @@ const ProductDetail = () => {
     );
   }
 
-  const handlePurchaseClick = () => {
+  const handlePurchaseClick = async () => {
     if (!isConnected) {
       setError('Per favore connetti il tuo wallet per procedere');
       return;
     }
-    
+
+    if (chainId !== SEPOLIA_CHAIN_ID) {
+      try {
+        await switchToSepolia();
+        setError('Per favore, conferma il cambio di rete a Sepolia');
+        return;
+      } catch (err) {
+        setError('È necessario essere sulla rete Sepolia per procedere');
+        return;
+      }
+    }
+
     if (balance && Number(balance) < Number(product.price)) {
       setError('Saldo insufficiente per completare l\'acquisto');
       return;
@@ -43,7 +64,6 @@ const ProductDetail = () => {
   const handleConfirmPurchase = async () => {
     try {
       const result = await purchaseProduct(product.price, product.id);
-      
       if (result.status === 'success' && result.hash) {
         setShowConfirm(false);
         navigate('/purchase-success', { 
@@ -63,6 +83,7 @@ const ProductDetail = () => {
     }
   };
 
+  // Il resto del componente rimane identico
   return (
     <div className="product-detail-container">
       <div className="product-detail">
@@ -114,6 +135,11 @@ const ProductDetail = () => {
             <div className="price-info">
               <span className="price-label">Prezzo</span>
               <span className="price-value">{product.price} ETH</span>
+              {chainId !== SEPOLIA_CHAIN_ID && isConnected && (
+                <div className="network-warning">
+                  Rete richiesta: Sepolia
+                </div>
+              )}
             </div>
 
             {error && <div className="error-message">{error}</div>}
