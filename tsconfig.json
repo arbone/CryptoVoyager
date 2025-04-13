@@ -29,5 +29,5 @@
     "scripts",
     "test",
     "hardhat.config.ts"
-  ]
+, "scripts"  ]
 }

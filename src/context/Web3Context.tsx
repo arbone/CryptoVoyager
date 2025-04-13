@@ -3,6 +3,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { GIANNI_WALLET_ADDRESS } from '../constants';
 import { TransactionStatus } from '../types';
+import { CONTRACT_ADDRESS } from '../config/contract';
+import TravelBookingABI from '../abi/TravelBooking.json';
+
 
 const SEPOLIA_CHAIN_ID = 11155111;
 

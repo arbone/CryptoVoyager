@@ -1,8 +1,8 @@
-// src/components/ProductCard/ProductCard.tsx
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import './ProductCard.css';
+import { useWeb3 } from '../../context/Web3Context';
 import { Product } from '../../types';
+import './ProductCard.css';
 
 interface ProductCardProps {
   product: Product;
@@ -12,6 +12,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const { isConnected, purchaseProduct } = useWeb3();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,16 +31,39 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
       }
     );
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
+    const currentCardRef = cardRef.current;
+
+    if (currentCardRef) {
+      observer.observe(currentCardRef);
     }
 
     return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
+      if (currentCardRef) {
+        observer.unobserve(currentCardRef);
       }
     };
   }, []);
+
+  const handleBooking = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    if (!isConnected) {
+      alert("Per favore connetti il tuo wallet per procedere");
+      return;
+    }
+
+    try {
+      const result = await purchaseProduct(product.price, product.id);
+      if (result.status === 'success') {
+        alert("Prenotazione completata con successo!");
+      } else {
+        throw new Error(result.message);
+      }
+    } catch (error: any) {
+      console.error('Errore durante la prenotazione:', error);
+      alert(error.message || "Errore durante la prenotazione. Riprova.");
+    }
+  };
 
   if (loading) {
     return (
@@ -81,7 +105,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
             className="product-image"
             loading="lazy"
           />
-          {product.sustainabilityScore && (
+          {product.sustainabilityScore > 0 && (
             <div className="sustainability-badge">
               {"⭐".repeat(product.sustainabilityScore)}
             </div>
@@ -91,7 +115,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
         <div className="product-content">
           <div className="product-tags">
             <span className="product-tag tag-location">{product.location}</span>
-            <span className="product-tag tag-category">{product.category}</span>
+            <span className={`product-tag tag-${product.category}`}>
+              {product.category}
+            </span>
           </div>
 
           <h3 className="product-title">{product.name}</h3>
@@ -103,12 +129,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
               <span className="product-duration">{product.duration}</span>
               <button 
                 className="book-button"
-                onClick={(e) => {
-                  e.preventDefault(); // Previene la navigazione del Link
-                  // Qui puoi aggiungere la logica per il booking
-                }}
+                onClick={handleBooking}
               >
-                Book Now
+                {isConnected ? 'Prenota Ora' : 'Connetti Wallet'}
               </button>
             </div>
           </div>
