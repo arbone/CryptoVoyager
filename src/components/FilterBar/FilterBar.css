@@ -49,14 +49,17 @@
   display: flex;
   gap: 12px;
   align-items: center;
+  width: 100%; /* ✅ aggiunto per sicurezza */
 }
 
 .price-input {
-  flex: 1;
+  flex: 1; /* ✅ fa sì che entrambe le input si adattino allo spazio */
+  min-width: 0; /* ✅ previene overflow causato da contenuto interno */
   padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
   background-color: white;
+  box-sizing: border-box; /* ✅ assicura che padding non rompa il layout */
 }
 
 .clear-filters {
