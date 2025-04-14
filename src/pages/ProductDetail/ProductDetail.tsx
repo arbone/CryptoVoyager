@@ -1,4 +1,3 @@
-// ProductDetail.tsx
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useWeb3 } from '../../context/Web3Context';
@@ -22,6 +21,7 @@ const ProductDetail = () => {
 
   const [error, setError] = useState<string | null>(null);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [participants, setParticipants] = useState(1);
 
   const product = PRODUCTS.find(p => p.id === Number(id));
 
@@ -37,6 +37,8 @@ const ProductDetail = () => {
       </div>
     );
   }
+
+  const totalPrice = (Number(product.price) * participants).toFixed(3);
 
   const handlePurchaseClick = async () => {
     if (!isConnected) {
@@ -55,7 +57,7 @@ const ProductDetail = () => {
       }
     }
 
-    if (balance && Number(balance) < Number(product.price)) {
+    if (balance && Number(balance) < Number(totalPrice)) {
       setError('Fondi insufficienti per prenotare');
       return;
     }
@@ -66,14 +68,15 @@ const ProductDetail = () => {
 
   const handleConfirmPurchase = async () => {
     try {
-      const result = await purchaseProduct(product.price, product.id);
+      const result = await purchaseProduct(totalPrice, product.id);
       if (result.status === 'success' && result.hash) {
         setShowConfirm(false);
         navigate('/purchase-success', { 
           state: { 
             productName: product.name,
             transactionHash: result.hash,
-            price: product.price
+            price: totalPrice,
+            participants
           }
         });
       } else {
@@ -141,6 +144,30 @@ const ProductDetail = () => {
               <span className="product-detail-price-person">per persona</span>
             </div>
 
+            <div className="product-detail-participants">
+              <label>Numero partecipanti</label>
+              <div className="product-detail-participants-control">
+                <button 
+                  onClick={() => setParticipants(prev => Math.max(1, prev - 1))}
+                  disabled={participants <= 1}
+                >
+                  -
+                </button>
+                <span>{participants}</span>
+                <button 
+                  onClick={() => setParticipants(prev => Math.min(product.maxParticipants, prev + 1))}
+                  disabled={participants >= product.maxParticipants}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div className="product-detail-total">
+              <span>Totale</span>
+              <span className="product-detail-total-amount">{totalPrice} ETH</span>
+            </div>
+
             {error && <div className="product-detail-error-message">{error}</div>}
 
             <button
@@ -172,7 +199,8 @@ const ProductDetail = () => {
             <h2>Conferma Prenotazione</h2>
             <div className="product-detail-modal-details">
               <p className="product-detail-modal-destination">{product.name}</p>
-              <p className="product-detail-modal-price">{product.price} ETH</p>
+              <p className="product-detail-modal-participants">Partecipanti: {participants}</p>
+              <p className="product-detail-modal-price">{totalPrice} ETH</p>
               <p className="product-detail-modal-wallet">{account}</p>
             </div>
             <div className="product-detail-modal-actions">
