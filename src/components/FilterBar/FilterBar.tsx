@@ -4,11 +4,12 @@ import { FilterOptions } from '../../types';
 
 interface FilterBarProps {
   onFilterChange: (filters: FilterOptions) => void;
+  onSortChange: (value: string) => void;
   locations: string[];
   categories: string[];
 }
 
-const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange, locations, categories }) => {
+const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange, onSortChange, locations, categories }) => {
   const [currentFilters, setCurrentFilters] = React.useState<FilterOptions>({
     category: null,
     priceRange: null,
@@ -94,10 +95,20 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange, locations, catego
           </div>
         </div>
       </div>
-      
-      <button onClick={clearFilters} className="clear-filters">
-        Clear Filters
-      </button>
+      <div className="filter-actions">
+        <button onClick={clearFilters} className="clear-filters">
+          Clear Filters
+        </button>
+        <select 
+          onChange={(e) => onSortChange(e.target.value)}
+          className="sort-select"
+        >
+          <option value="default">Recommended</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating">Rating</option>
+        </select>
+      </div>
     </div>
   );
 };

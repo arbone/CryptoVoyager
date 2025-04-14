@@ -3,7 +3,6 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { PRODUCTS } from '../../constants';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import FilterBar from '../../components/FilterBar/FilterBar';
-import SortBar from '../../components/SortBar/SortBar';
 import { FilterOptions } from '../../types';
 import './Home.css';
 
@@ -105,14 +104,14 @@ const Home: React.FC = () => {
           Discover eco-friendly travel packages that make a positive impact
         </p>
       </section>
-
+  
       <div className="filters-section">
         <FilterBar 
           onFilterChange={setFilters}
+          onSortChange={setSortBy}
           locations={locations}
           categories={categories}
         />
-        <SortBar onSortChange={setSortBy} />
       </div>
 
       <section className="products-section">
