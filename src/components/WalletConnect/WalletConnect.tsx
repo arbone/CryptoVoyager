@@ -76,7 +76,7 @@ export const WalletConnect = () => {
             onClick={connectWallet} 
             className="connect-button"
           >
-            Connect MetaMask Wallet
+            Connect Wallet
           </button>
         )}
       </div>

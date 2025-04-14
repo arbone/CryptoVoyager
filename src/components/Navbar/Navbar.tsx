@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { WalletConnect } from '../WalletConnect/WalletConnect';
+
 const InfoIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
