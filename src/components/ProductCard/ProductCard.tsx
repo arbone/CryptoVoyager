@@ -17,7 +17,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting && entry.target instanceof HTMLElement) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
@@ -25,10 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
           }
         });
       },
-      {
-        threshold: 0.1,
-        rootMargin: '50px'
-      }
+      { threshold: 0.1, rootMargin: '50px' }
     );
 
     const currentCardRef = cardRef.current;
@@ -46,22 +43,21 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
 
   const handleBooking = async (e: React.MouseEvent) => {
     e.preventDefault();
-    
     if (!isConnected) {
-      alert("Per favore connetti il tuo wallet per procedere");
+      alert('Per favore connetti il tuo wallet per procedere');
       return;
     }
 
     try {
       const result = await purchaseProduct(product.price, product.id);
       if (result.status === 'success') {
-        alert("Prenotazione completata con successo!");
+        alert('Prenotazione completata con successo!');
       } else {
         throw new Error(result.message);
       }
     } catch (error: any) {
       console.error('Errore durante la prenotazione:', error);
-      alert(error.message || "Errore durante la prenotazione. Riprova.");
+      alert(error.message || 'Errore durante la prenotazione. Riprova.');
     }
   };
 
@@ -83,8 +79,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
   }
 
   return (
-    <Link 
-      to={`/product/${product.id}`} 
+    <Link
+      to={`/product/${product.id}`}
       className="product-card-link"
       style={{ textDecoration: 'none', color: 'inherit' }}
     >
@@ -95,19 +91,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
           opacity: 0,
           transform: 'translateY(20px)',
           transition: 'all 0.5s ease',
-          transitionDelay: `${index * 0.1}s`
+          transitionDelay: `${index * 0.1}s`,
         }}
       >
         <div className="product-image-container">
-          <img 
-            src={product.image} 
-            alt={product.name} 
+          <img
+            src={product.image}
+            alt={product.name}
             className="product-image"
             loading="lazy"
           />
           {product.sustainabilityScore > 0 && (
-            <div className="sustainability-badge">
-              {"⭐".repeat(product.sustainabilityScore)}
+            <div className="product-badge">
+              <span>{"⭐".repeat(product.sustainabilityScore)}</span>
             </div>
           )}
         </div>
@@ -115,9 +111,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
         <div className="product-content">
           <div className="product-tags">
             <span className="product-tag tag-location">{product.location}</span>
-            <span className={`product-tag tag-${product.category}`}>
-              {product.category}
-            </span>
+            <span className="product-tag tag-category">{product.category}</span>
           </div>
 
           <h3 className="product-title">{product.name}</h3>
@@ -126,13 +120,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
           <div className="product-footer">
             <span className="product-price">{product.price} ETH</span>
             <div className="product-actions">
-              <span className="product-duration">{product.duration}</span>
-              <button 
-                className="book-button"
-                onClick={handleBooking}
-              >
-                {isConnected ? 'Prenota Ora' : 'Connetti Wallet'}
-              </button>
+              <span className="box-style">{product.duration}</span>
+              <button className="book-button">{'Prenota Ora'}</button>
             </div>
           </div>
         </div>
