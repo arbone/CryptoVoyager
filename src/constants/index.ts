@@ -64,7 +64,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 4,
     name: "New Zealand Wilderness Experience",
-    description: "Discover New Zealand's pristine wilderness through eco-friendly adventures and Maori cultural experiences.",
+    description: "Discover New Zealand's pristine wilderness through eco-friendly adventures and Maori experiences.",
     price: "0.7",
     image: "https://images.unsplash.com/photo-1570459027562-4a916cc6113f",
     duration: "10 days",

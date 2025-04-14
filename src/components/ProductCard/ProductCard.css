@@ -10,6 +10,9 @@
   transform: translateY(20px);
   animation: fadeInUp 0.5s ease forwards;
   position: relative;
+  min-height: 520px; /* Altezza minima invece di fissa */
+  display: flex;
+  flex-direction: column;
 }
 
 .product-card:hover {

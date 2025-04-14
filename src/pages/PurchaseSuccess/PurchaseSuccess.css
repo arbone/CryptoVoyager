@@ -1,133 +1,223 @@
 /* src/pages/PurchaseSuccess/PurchaseSuccess.css */
-.purchase-success-container {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    background: var(--bg-gradient);
-  }
-  
+.purchase-success {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+ 
+}
+
+.success-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 3rem;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.success-icon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1.5rem;
+  position: relative;
+}
+
+.checkmark {
+  font-size: 3.5rem;
+  color: #28a745;
+  background: #e6f7ed;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scaleCheckmark 0.5s ease-out;
+}
+
+h1 {
+  color: #2b2d42;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.success-message {
+  color: #4a4e69;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+}
+
+.highlight {
+  color: #4361ee;
+  font-weight: 600;
+}
+
+.transaction-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.transaction-section h3 {
+  color: #2b2d42;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.detail-label {
+  color: #6c757d;
+  width: 80px;
+  font-weight: 500;
+}
+
+.status-badge {
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.status-badge.confirmed {
+  background-color: #e6f7ed;
+  color: #28a745;
+}
+
+.hash-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 8px;
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+}
+
+.transaction-hash {
+  flex: 1;
+  color: #4361ee;
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  word-break: break-all;
+  padding: 0.5rem;
+  transition: color 0.2s;
+}
+
+.transaction-hash:hover {
+  color: #3a56c8;
+  text-decoration: underline;
+}
+
+.copy-button {
+  background: #4361ee;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy-button:hover {
+  background: #3a56c8;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.button {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.button.primary {
+  background: #4361ee;
+  color: white;
+}
+
+.button.primary:hover {
+  background: #3a56c8;
+  transform: translateY(-2px);
+}
+
+.button.secondary {
+  background: white;
+  color: #4361ee;
+  border: 1px solid #4361ee;
+}
+
+.button.secondary:hover {
+  background: #f0f4ff;
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleCheckmark {
+  0% { transform: scale(0); opacity: 0; }
+  80% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
   .success-card {
-    background: var(--card-bg);
-    border-radius: 20px;
-    padding: 2rem;
-    max-width: 600px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    animation: slideIn 0.5s ease;
-  }
-  
-  .success-icon {
-    width: 80px;
-    height: 80px;
-    background: var(--success-color);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 2rem;
-    font-size: 40px;
-    color: white;
-    animation: scaleIn 0.5s ease;
-  }
-  
-  .success-message {
-    font-size: 1.2rem;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-  }
-  
-  .transaction-details {
-    background: var(--bg-secondary);
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin: 2rem 0;
-  }
-  
-  .detail-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .detail-item:last-child {
-    border-bottom: none;
-  }
-  
-  .hash-link {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-family: monospace;
-    padding: 0.25rem 0.5rem;
-    background: var(--bg-secondary);
-    border-radius: 4px;
-    transition: all 0.3s ease;
-  }
-  
-  .hash-link:hover {
-    background: var(--primary-color);
-    color: white;
+    padding: 2rem 1.5rem;
   }
   
   .action-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
+    flex-direction: column;
   }
   
-  .home-button,
-  .purchases-button {
-    flex: 1;
-    padding: 1rem;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
+  .detail-row {
+    flex-direction: column;
+    align-items: flex-start;
   }
   
-  .home-button {
-    background: var(--primary-color);
-    color: white;
+  .detail-label {
+    margin-bottom: 0.5rem;
+    width: 100%;
   }
   
-  .purchases-button {
-    background: var(--bg-secondary);
-    color: var(--text-color);
+  .hash-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
   }
   
-  .home-button:hover,
-  .purchases-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  .copy-button {
+    margin-left: 0;
+    margin-top: 0.5rem;
+    width: 100%;
   }
-  
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes scaleIn {
-    from {
-      transform: scale(0);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .action-buttons {
-      flex-direction: column;
-    }
-  }
-  
+}
