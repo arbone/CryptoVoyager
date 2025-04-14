@@ -27,10 +27,10 @@ const ProductDetail = () => {
 
   if (!product) {
     return (
-      <div className="error-container">
-        <div className="error-content">
+      <div className="product-detail-error-container">
+        <div className="product-detail-error-content">
           <h2>Oops! Destinazione non trovata</h2>
-          <button onClick={() => navigate('/')} className="back-button">
+          <button onClick={() => navigate('/')} className="product-detail-back-button">
             Torna alla Home
           </button>
         </div>
@@ -87,46 +87,46 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="product-container">
-      <div className="product-hero">
-        <img src={product.image} alt={product.name} className="product-image" />
-        <div className="product-badges">
-          <span className="badge eco">{product.category}</span>
-          <span className="badge sustainability">
+    <div className="product-detail-container">
+      <div className="product-detail-hero">
+        <img src={product.image} alt={product.name} className="product-detail-image" />
+        <div className="product-detail-badges">
+          <span className="product-detail-badge product-detail-eco">{product.category}</span>
+          <span className="product-detail-badge product-detail-sustainability">
             Eco Score: {product.sustainabilityScore}/5
           </span>
         </div>
       </div>
 
-      <div className="product-content">
-        <div className="product-main">
-          <div className="product-header">
+      <div className="product-detail-content">
+        <div className="product-detail-main">
+          <div className="product-detail-header">
             <h1>{product.name}</h1>
-            <p className="product-description">{product.description}</p>
+            <p className="product-detail-description">{product.description}</p>
           </div>
 
-          <div className="info-grid">
-            <div className="info-card">
-              <span className="info-label">Durata</span>
-              <span className="info-value">{product.duration}</span>
+          <div className="product-detail-info-grid">
+            <div className="product-detail-info-card">
+              <span className="product-detail-info-label">Durata</span>
+              <span className="product-detail-info-value">{product.duration}</span>
             </div>
-            <div className="info-card">
-              <span className="info-label">Località</span>
-              <span className="info-value">{product.location}</span>
+            <div className="product-detail-info-card">
+              <span className="product-detail-info-label">Località</span>
+              <span className="product-detail-info-value">{product.location}</span>
             </div>
-            <div className="info-card">
-              <span className="info-label">Gruppo</span>
-              <span className="info-value">Max {product.maxParticipants}</span>
+            <div className="product-detail-info-card">
+              <span className="product-detail-info-label">Gruppo</span>
+              <span className="product-detail-info-value">Max {product.maxParticipants}</span>
             </div>
-            <div className="info-card">
-              <span className="info-label">Rating</span>
-              <span className="info-value">⭐ {product.rating}</span>
+            <div className="product-detail-info-card">
+              <span className="product-detail-info-label">Rating</span>
+              <span className="product-detail-info-value">⭐ {product.rating}</span>
             </div>
           </div>
 
-          <div className="features-section">
+          <div className="product-detail-features-section">
             <h2>Highlights del Viaggio</h2>
-            <ul className="features-list">
+            <ul className="product-detail-features-list">
               {product.features.map((feature, index) => (
                 <li key={index}>{feature}</li>
               ))}
@@ -134,17 +134,17 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        <div className="booking-section">
-          <div className="booking-card">
-            <div className="price-display">
-              <span className="price-amount">{product.price} ETH</span>
-              <span className="price-person">per persona</span>
+        <div className="product-detail-booking-section">
+          <div className="product-detail-booking-card">
+            <div className="product-detail-price-display">
+              <span className="product-detail-price-amount">{product.price} ETH</span>
+              <span className="product-detail-price-person">per persona</span>
             </div>
 
-            {error && <div className="error-message">{error}</div>}
+            {error && <div className="product-detail-error-message">{error}</div>}
 
             <button
-              className={`book-button ${isProcessing ? 'processing' : ''}`}
+              className={`product-detail-book-button ${isProcessing ? 'product-detail-processing' : ''}`}
               onClick={handlePurchaseClick}
               disabled={!isConnected || isProcessing}
             >
@@ -152,13 +152,13 @@ const ProductDetail = () => {
             </button>
 
             {!isConnected && (
-              <p className="connect-prompt">
+              <p className="product-detail-connect-prompt">
                 Connetti il wallet per prenotare
               </p>
             )}
 
             {chainId !== SEPOLIA_CHAIN_ID && isConnected && (
-              <div className="network-notice">
+              <div className="product-detail-network-notice">
                 Rete richiesta: Sepolia
               </div>
             )}
@@ -167,24 +167,24 @@ const ProductDetail = () => {
       </div>
 
       {showConfirm && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className="product-detail-modal-overlay">
+          <div className="product-detail-modal-content">
             <h2>Conferma Prenotazione</h2>
-            <div className="modal-details">
-              <p className="modal-destination">{product.name}</p>
-              <p className="modal-price">{product.price} ETH</p>
-              <p className="modal-wallet">{account}</p>
+            <div className="product-detail-modal-details">
+              <p className="product-detail-modal-destination">{product.name}</p>
+              <p className="product-detail-modal-price">{product.price} ETH</p>
+              <p className="product-detail-modal-wallet">{account}</p>
             </div>
-            <div className="modal-actions">
+            <div className="product-detail-modal-actions">
               <button 
-                className="confirm-button" 
+                className="product-detail-confirm-button" 
                 onClick={handleConfirmPurchase}
                 disabled={isProcessing}
               >
                 Conferma
               </button>
               <button 
-                className="cancel-button" 
+                className="product-detail-cancel-button" 
                 onClick={() => setShowConfirm(false)}
                 disabled={isProcessing}
               >
