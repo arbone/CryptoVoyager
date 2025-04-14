@@ -1,3 +1,4 @@
+// ProductDetail.tsx
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useWeb3 } from '../../context/Web3Context';
@@ -18,7 +19,7 @@ const ProductDetail = () => {
     chainId,
     switchToSepolia 
   } = useWeb3();
-  
+
   const [error, setError] = useState<string | null>(null);
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -27,9 +28,11 @@ const ProductDetail = () => {
   if (!product) {
     return (
       <div className="error-container">
-        <div className="error-message">
-          Prodotto non trovato
-          <button onClick={() => navigate('/')}>Torna alla Home</button>
+        <div className="error-content">
+          <h2>Oops! Destinazione non trovata</h2>
+          <button onClick={() => navigate('/')} className="back-button">
+            Torna alla Home
+          </button>
         </div>
       </div>
     );
@@ -37,23 +40,23 @@ const ProductDetail = () => {
 
   const handlePurchaseClick = async () => {
     if (!isConnected) {
-      setError('Per favore connetti il tuo wallet per procedere');
+      setError('Connetti il tuo wallet per iniziare l\'avventura');
       return;
     }
 
     if (chainId !== SEPOLIA_CHAIN_ID) {
       try {
         await switchToSepolia();
-        setError('Per favore, conferma il cambio di rete a Sepolia');
+        setError('Conferma il cambio di rete a Sepolia');
         return;
       } catch (err) {
-        setError('È necessario essere sulla rete Sepolia per procedere');
+        setError('Cambio di rete necessario per procedere');
         return;
       }
     }
 
     if (balance && Number(balance) < Number(product.price)) {
-      setError('Saldo insufficiente per completare l\'acquisto');
+      setError('Fondi insufficienti per prenotare');
       return;
     }
 
@@ -78,74 +81,70 @@ const ProductDetail = () => {
         setShowConfirm(false);
       }
     } catch (err: any) {
-      setError(err.message || 'Errore durante l\'acquisto');
+      setError(err.message || 'Errore durante la prenotazione');
       setShowConfirm(false);
     }
   };
 
-  // Il resto del componente rimane identico
   return (
-    <div className="product-detail-container">
-      <div className="product-detail">
-        <div className="product-image-section">
-          <img src={product.image} alt={product.name} className="product-image" />
-          <div className="product-badges">
-            <span className={`badge category-${product.category}`}>
-              {product.category}
-            </span>
-            <span className="badge sustainability">
-              Sustainability Score: {product.sustainabilityScore}/5
-            </span>
-          </div>
+    <div className="product-container">
+      <div className="product-hero">
+        <img src={product.image} alt={product.name} className="product-image" />
+        <div className="product-badges">
+          <span className="badge eco">{product.category}</span>
+          <span className="badge sustainability">
+            Eco Score: {product.sustainabilityScore}/5
+          </span>
         </div>
+      </div>
 
-        <div className="product-info-section">
-          <h1 className="product-title">{product.name}</h1>
-          <p className="product-description">{product.description}</p>
+      <div className="product-content">
+        <div className="product-main">
+          <div className="product-header">
+            <h1>{product.name}</h1>
+            <p className="product-description">{product.description}</p>
+          </div>
 
-          <div className="product-stats">
-            <div className="stat-item">
-              <span className="stat-label">Durata</span>
-              <span className="stat-value">{product.duration}</span>
+          <div className="info-grid">
+            <div className="info-card">
+              <span className="info-label">Durata</span>
+              <span className="info-value">{product.duration}</span>
             </div>
-            <div className="stat-item">
-              <span className="stat-label">Località</span>
-              <span className="stat-value">{product.location}</span>
+            <div className="info-card">
+              <span className="info-label">Località</span>
+              <span className="info-value">{product.location}</span>
             </div>
-            <div className="stat-item">
-              <span className="stat-label">Partecipanti Max</span>
-              <span className="stat-value">{product.maxParticipants}</span>
+            <div className="info-card">
+              <span className="info-label">Gruppo</span>
+              <span className="info-value">Max {product.maxParticipants}</span>
             </div>
-            <div className="stat-item">
-              <span className="stat-label">Rating</span>
-              <span className="stat-value">⭐ {product.rating}</span>
+            <div className="info-card">
+              <span className="info-label">Rating</span>
+              <span className="info-value">⭐ {product.rating}</span>
             </div>
           </div>
 
-          <div className="product-features">
-            <h2>Caratteristiche del Viaggio</h2>
-            <ul>
+          <div className="features-section">
+            <h2>Highlights del Viaggio</h2>
+            <ul className="features-list">
               {product.features.map((feature, index) => (
                 <li key={index}>{feature}</li>
               ))}
             </ul>
           </div>
+        </div>
 
-          <div className="purchase-section">
-            <div className="price-info">
-              <span className="price-label">Prezzo</span>
-              <span className="price-value">{product.price} ETH</span>
-              {chainId !== SEPOLIA_CHAIN_ID && isConnected && (
-                <div className="network-warning">
-                  Rete richiesta: Sepolia
-                </div>
-              )}
+        <div className="booking-section">
+          <div className="booking-card">
+            <div className="price-display">
+              <span className="price-amount">{product.price} ETH</span>
+              <span className="price-person">per persona</span>
             </div>
 
             {error && <div className="error-message">{error}</div>}
 
             <button
-              className={`purchase-button ${isProcessing ? 'processing' : ''}`}
+              className={`book-button ${isProcessing ? 'processing' : ''}`}
               onClick={handlePurchaseClick}
               disabled={!isConnected || isProcessing}
             >
@@ -154,20 +153,28 @@ const ProductDetail = () => {
 
             {!isConnected && (
               <p className="connect-prompt">
-                Connetti il tuo wallet per prenotare questo viaggio
+                Connetti il wallet per prenotare
               </p>
+            )}
+
+            {chainId !== SEPOLIA_CHAIN_ID && isConnected && (
+              <div className="network-notice">
+                Rete richiesta: Sepolia
+              </div>
             )}
           </div>
         </div>
       </div>
 
       {showConfirm && (
-        <div className="confirmation-modal">
+        <div className="modal-overlay">
           <div className="modal-content">
             <h2>Conferma Prenotazione</h2>
-            <p>Stai per prenotare: {product.name}</p>
-            <p>Prezzo: {product.price} ETH</p>
-            <p>Dal wallet: {account}</p>
+            <div className="modal-details">
+              <p className="modal-destination">{product.name}</p>
+              <p className="modal-price">{product.price} ETH</p>
+              <p className="modal-wallet">{account}</p>
+            </div>
             <div className="modal-actions">
               <button 
                 className="confirm-button" 
