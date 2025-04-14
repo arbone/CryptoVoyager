@@ -1,12 +1,10 @@
-/* src/pages/Home/Home.css */
 .home-container {
-    max-width: 1200px;
+    max-width: 90%;
     margin: 0 auto;
     padding: 20px;
     animation: fadeIn 0.5s ease-out;
   }
   
-  /* src/pages/Home/Home.css */
   .hero-section {
     text-align: center;
     padding: 60px 20px;
@@ -15,11 +13,10 @@
     color: white;
     transform: translateY(0);
     transition: transform 0.3s ease;
-    position: relative; /* aggiunto */
-    overflow: hidden;   /* aggiunto */
+    position: relative;
+    overflow: hidden;
   }
 
-  /* aggiunto per l'immagine di sfondo */
   .hero-section::before {
     content: '';
     position: absolute;
@@ -35,7 +32,6 @@
     z-index: -2;
   }
 
-  /* aggiunto per il gradiente */
   .hero-section::after {
     content: '';
     position: absolute;
@@ -47,7 +43,6 @@
     opacity: 0.7;
     z-index: -1;
   }
-
   
   .hero-section:hover {
     transform: translateY(-5px);
@@ -81,7 +76,6 @@
     animation: pulse 1.5s infinite ease-in-out;
   }
   
-  /* Animations */
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -104,7 +98,6 @@
     100% { opacity: 0.3; }
   }
   
-  /* Smooth loading animation for products */
   .product-enter {
     opacity: 0;
     transform: translateY(20px);

@@ -17,8 +17,62 @@
   
   .navbar-logo {
     font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin: 0;
+    font-weight: 600;
+    color: #4f46e5;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .navbar-logo:hover {
+    color: #4338ca;
+  }
+
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4f46e5;
+    text-decoration: none;
+  }
+  
+  .navbar-logo:hover {
+    color: #4338ca;
+  }
+  
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .info-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4f46e5;
+    transition: color 0.3s ease;
+  }
+  
+  .info-button:hover {
+    color: #4338ca;
+  }
+  
+  .info-icon {
+    width: 28px;
+    height: 28px;
   }
   
