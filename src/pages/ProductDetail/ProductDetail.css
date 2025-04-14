@@ -1,4 +1,4 @@
-/* ProductDetail.css */
+/* Base Container */
 .product-detail-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -6,6 +6,7 @@
   background: #fff;
 }
 
+/* Hero Section */
 .product-detail-hero {
   position: relative;
   margin-bottom: 2rem;
@@ -15,7 +16,7 @@
 
 .product-detail-image {
   width: 100%;
-  height: 300px;
+  height: 400px;
   object-fit: cover;
 }
 
@@ -44,10 +45,12 @@
   background-color: rgba(59, 130, 246, 0.9);
 }
 
+/* Main Content Layout */
 .product-detail-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 3rem;
+  margin-top: 2rem;
 }
 
 .product-detail-main {
@@ -56,6 +59,7 @@
   gap: 2rem;
 }
 
+/* Header */
 .product-detail-header h1 {
   font-size: 2.5rem;
   color: #1a1a1a;
@@ -68,21 +72,21 @@
   color: #666;
 }
 
+/* Info Grid */
 .product-detail-info-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin: 1rem 0 2rem;
 }
 
 .product-detail-info-card {
-  padding: 1rem;
+  padding: 1.25rem;
   background: #f8fafc;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-width: 0;
 }
 
 .product-detail-info-label {
@@ -98,51 +102,57 @@
   font-weight: 500;
 }
 
+/* Features Section */
 .product-detail-features-section {
-  width: 100%;
-  padding: 2rem;
   background: #f8fafc;
   border-radius: 12px;
-  grid-column: 1 / -1;
+  padding: 2rem;
 }
 
 .product-detail-features-section h2 {
   font-size: 1.5rem;
   color: #1a1a1a;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .product-detail-features-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .product-detail-features-list li {
-  padding: 0.8rem 0;
+  padding: 1rem 0;
   border-bottom: 1px solid #e2e8f0;
   color: #4a5568;
 }
 
 .product-detail-features-list li:last-child {
   border-bottom: none;
+  padding-bottom: 0;
 }
 
+/* Booking Section */
 .product-detail-booking-section {
   position: sticky;
   top: 2rem;
+  align-self: start;
+  margin-top: 7rem; /* Aggiungi questa riga */
 }
 
 .product-detail-booking-card {
   padding: 2rem;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Price Display */
 .product-detail-price-display {
   text-align: center;
   margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .product-detail-price-amount {
@@ -155,179 +165,13 @@
   display: block;
   font-size: 0.9rem;
   color: #64748b;
+  margin-top: 0.25rem;
 }
 
-.product-detail-book-button {
-  width: 100%;
-  padding: 1rem;
-  background: #f97316;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.product-detail-book-button:hover:not(:disabled) {
-  background: #ea580c;
-  transform: translateY(-2px);
-}
-
-.product-detail-book-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.product-detail-book-button.product-detail-processing {
-  background: #9ca3af;
-}
-
-.product-detail-connect-prompt {
-  margin-top: 1rem;
-  text-align: center;
-  color: #64748b;
-  font-size: 0.9rem;
-}
-
-.product-detail-error-message {
-  padding: 1rem;
-  margin: 1rem 0;
-  background: #fee2e2;
-  color: #ef4444;
-  border-radius: 8px;
-  font-size: 0.9rem;
-}
-
-.product-detail-network-notice {
-  margin-top: 1rem;
-  padding: 0.8rem;
-  background: #fff7ed;
-  color: #ea580c;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-.product-detail-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.product-detail-modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 16px;
-  width: 90%;
-  max-width: 500px;
-}
-
-.product-detail-modal-content h2 {
-  color: #1a1a1a;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.product-detail-modal-details {
-  margin-bottom: 2rem;
-}
-
-.product-detail-modal-destination {
-  font-size: 1.2rem;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
-}
-
-.product-detail-modal-price {
-  font-size: 1.5rem;
-  color: #0ea5e9;
-  margin-bottom: 0.5rem;
-}
-
-.product-detail-modal-wallet {
-  font-size: 0.9rem;
-  color: #64748b;
-  word-break: break-all;
-}
-
-.product-detail-modal-actions {
-  display: flex;
-  gap: 1rem;
-}
-
-.product-detail-confirm-button,
-.product-detail-cancel-button {
-  flex: 1;
-  padding: 0.8rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.product-detail-confirm-button {
-  background: #10b981;
-  color: white;
-}
-
-.product-detail-confirm-button:hover:not(:disabled) {
-  background: #059669;
-}
-
-.product-detail-cancel-button {
-  background: #e5e7eb;
-  color: #4b5563;
-}
-
-.product-detail-cancel-button:hover:not(:disabled) {
-  background: #d1d5db;
-}
-
-@media (max-width: 768px) {
-  .product-detail-content {
-    grid-template-columns: 1fr;
-  }
-
-  .product-detail-booking-section {
-    position: static;
-    margin-top: 2rem;
-  }
-
-  .product-detail-image {
-    height: 300px;
-  }
-
-  .product-detail-info-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .product-detail-info-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .product-detail-modal-content {
-    padding: 1.5rem;
-  }
-
-  .product-detail-modal-actions {
-    flex-direction: column;
-  }
-}
-
-/* Nuove classi da aggiungere */
+/* Participants Section */
 .product-detail-participants {
   margin: 1.5rem 0;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
   border-top: 1px solid #e2e8f0;
   border-bottom: 1px solid #e2e8f0;
 }
@@ -335,7 +179,7 @@
 .product-detail-participants label {
   display: block;
   color: #64748b;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   font-size: 0.9rem;
 }
 
@@ -347,8 +191,8 @@
 }
 
 .product-detail-participants-control button {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   background: white;
@@ -381,12 +225,13 @@
   text-align: center;
 }
 
+/* Total Section */
 .product-detail-total {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 1.5rem 0;
-  padding: 1rem 0;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid #e2e8f0;
 }
 
@@ -402,20 +247,98 @@
   color: #0ea5e9;
 }
 
-/* Modifica alla classe esistente per aggiungere margine */
-.product-detail-price-display {
-  text-align: center;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+/* Book Button */
+.product-detail-book-button {
+  width: 100%;
+  padding: 1rem;
+  background: #f97316;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-/* Modifica alla classe del modal per includere i partecipanti */
+.product-detail-book-button:hover:not(:disabled) {
+  background: #ea580c;
+  transform: translateY(-2px);
+}
+
+.product-detail-book-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.product-detail-book-button.product-detail-processing {
+  background: #9ca3af;
+}
+
+/* Additional Info */
+.product-detail-connect-prompt {
+  margin-top: 1rem;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.product-detail-error-message {
+  padding: 1rem;
+  margin: 1rem 0;
+  background: #fee2e2;
+  color: #ef4444;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.product-detail-network-notice {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: #fff7ed;
+  color: #ea580c;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Modal */
+.product-detail-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.product-detail-modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.product-detail-modal-content h2 {
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
 .product-detail-modal-details {
   margin-bottom: 2rem;
-  padding: 1rem;
+  padding: 1.5rem;
   background: #f8fafc;
   border-radius: 12px;
+}
+
+.product-detail-modal-destination {
+  font-size: 1.2rem;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
 }
 
 .product-detail-modal-participants {
@@ -424,19 +347,86 @@
   margin-bottom: 0.5rem;
 }
 
-/* Media query per dispositivi mobili */
-@media (max-width: 480px) {
-  .product-detail-participants-control {
-    gap: 0.5rem;
+.product-detail-modal-price {
+  font-size: 1.5rem;
+  color: #0ea5e9;
+  margin-bottom: 0.5rem;
+}
+
+.product-detail-modal-wallet {
+  font-size: 0.9rem;
+  color: #64748b;
+  word-break: break-all;
+}
+
+.product-detail-modal-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.product-detail-confirm-button,
+.product-detail-cancel-button {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.product-detail-confirm-button {
+  background: #10b981;
+  color: white;
+}
+
+.product-detail-confirm-button:hover:not(:disabled) {
+  background: #059669;
+}
+
+.product-detail-cancel-button {
+  background: #e5e7eb;
+  color: #4b5563;
+}
+
+.product-detail-cancel-button:hover:not(:disabled) {
+  background: #d1d5db;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .product-detail-content {
+    grid-template-columns: 1fr;
   }
 
-  .product-detail-participants-control button {
-    width: 28px;
-    height: 28px;
-    font-size: 1rem;
+  .product-detail-booking-section {
+    position: static;
+    width: 100%;
   }
 
-  .product-detail-total-amount {
-    font-size: 1.2rem;
+  .product-detail-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .product-detail-image {
+    height: 250px;
+  }
+
+  .product-detail-header h1 {
+    font-size: 2rem;
+  }
+
+  .product-detail-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-detail-modal-actions {
+    flex-direction: column;
+  }
+
+  .product-detail-modal-content {
+    padding: 1.5rem;
   }
 }
