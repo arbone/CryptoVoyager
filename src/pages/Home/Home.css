@@ -52,6 +52,8 @@
     font-size: clamp(2rem, 5vw, 3.5rem);
     margin-bottom: 20px;
     animation: slideUp 0.5s ease-out 0.2s backwards;
+    color: #fff;
+    
   }
   
   .hero-subtitle {
