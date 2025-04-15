@@ -1,11 +1,43 @@
 // src/pages/PurchaseSuccess/PurchaseSuccess.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import './PurchaseSuccess.css';
 
+interface OrderData {
+  productName: string;
+  transactionHash: string;
+  amount?: number;
+  date?: string;
+}
+
+interface Order {
+  id: string;
+  productName: string;
+  transactionHash: string;
+  amount: number;
+  date: string;
+  status: 'completed';
+}
+
 const PurchaseSuccess: React.FC = () => {
   const location = useLocation();
-  const { productName, transactionHash } = location.state || {};
+  const { productName, transactionHash, amount } = location.state as OrderData || {};
+
+  // Salva l'ordine nello storage al caricamento della pagina
+  useEffect(() => {
+    if (transactionHash) {
+      const orders: Order[] = JSON.parse(localStorage.getItem('orders') || '[]');
+      const newOrder: Order = {
+        id: crypto.randomUUID(),
+        productName,
+        transactionHash,
+        amount: amount || 0,
+        date: new Date().toISOString(),
+        status: 'completed'
+      };
+      localStorage.setItem('orders', JSON.stringify([...orders, newOrder]));
+    }
+  }, [transactionHash, productName, amount]);
 
   const copyToClipboard = () => {
     if (!transactionHash) return;
