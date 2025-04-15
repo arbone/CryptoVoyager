@@ -1,7 +1,7 @@
 // src/pages/MyBookings/MyBookings.tsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Order, getOrders } from '../../services/orderService';
+import { Order, getOrders } from '../../utils/orderService';
 import './MyBookings.css';
 
 const MyBookings: React.FC = () => {
