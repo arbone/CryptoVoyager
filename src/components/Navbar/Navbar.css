@@ -32,26 +32,3 @@
   align-items: center;
   gap: 1rem;
 }
-
-.navbar-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.navbar-logo {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #4f46e5;
-  text-decoration: none;
-}
-
-.navbar-logo:hover {
-  color: #4338ca;
-}
-
-.navbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
