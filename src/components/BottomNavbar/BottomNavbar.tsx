@@ -26,7 +26,7 @@ const BottomNavbar = () => {
 
         <Link to="/my-bookings" className="button">
           <svg
-            className="icon"
+            className="icon-bookings"
             viewBox="0 0 60 60"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -60,6 +60,21 @@ const BottomNavbar = () => {
               d="M12 16v-4"
             />
             <circle cx="12" cy="8" r="1" fill="currentColor"/>
+          </svg>
+        </Link>
+
+        <Link to="/instructions" className="button">
+          <svg
+            className="icon"
+            viewBox="0 0 1920 1920"
+            xmlns="http://www.w3.org/2000/svg"
+            stroke="currentColor"
+            fill="currentColor"
+          >
+            <path 
+              d="M1920 332v1257H0V332h1920Zm-115 114H115v1032h1690V446Zm-574 683v113H409v-113h822Zm275-226v113H409V903h1097Zm-275-226v113H409V677h822Z" 
+              fillRule="evenodd"
+            />
           </svg>
         </Link>
       </div>

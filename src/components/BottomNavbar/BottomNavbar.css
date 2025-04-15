@@ -73,6 +73,12 @@
   transition: transform 0.3s ease;
 }
 
+.icon-bookings {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
 .button:hover .icon {
   transform: scale(1.1);
 }
@@ -98,6 +104,11 @@
     width: 20px;
     height: 20px;
   }
+
+  .icon-bookings {
+    width: 25px;
+    height: 25px;
+}
 }
 
 @media (max-width: 480px) {
@@ -114,6 +125,10 @@
     width: 18px;
     height: 18px;
   }
+  .icon-bookings {
+    width: 25px;
+    height: 25px;
+    }
   
   .button:hover::after {
     font-size: 10px;
