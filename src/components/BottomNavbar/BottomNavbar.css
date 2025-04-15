@@ -1,7 +1,7 @@
 /* src/components/BottomNavbar/BottomNavbar.css */
 .bottom-navbar-container {
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   left: 0;
   right: 0;
   display: flex;
@@ -12,7 +12,7 @@
 
 .button-container {
   display: flex;
-  background-color: rgba(0, 73, 144, 0.9);
+  background-color:  #4f46e5;
   width: 280px;
   height: 60px;
   align-items: center;
@@ -32,8 +32,8 @@
 }
 
 .button {
-  outline: 0 !important;
-  border: 0 !important;
+  outline: 0;
+  border: 0;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -50,11 +50,9 @@
 
 .button:hover {
   transform: scale(1.1) translateY(-5px);
-  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .button:hover::after {
-  content: attr(title);
   position: absolute;
   bottom: -25px;
   left: 50%;
