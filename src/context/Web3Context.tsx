@@ -6,7 +6,6 @@ import { TransactionStatus } from '../types';
 import { CONTRACT_ADDRESS } from '../config/contract';
 import TravelBookingABI from '../abi/TravelBooking.json';
 
-
 const SEPOLIA_CHAIN_ID = 11155111;
 
 interface Web3ContextType {
@@ -19,6 +18,7 @@ interface Web3ContextType {
   purchaseProduct: (price: string, productId: number) => Promise<TransactionStatus>;
   isProcessing: boolean;
   switchToSepolia: () => Promise<void>;
+  isMobile: boolean;
 }
 
 const Web3Context = createContext<Web3ContextType>({} as Web3ContextType);
@@ -31,6 +31,12 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
   const [balance, setBalance] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [chainId, setChainId] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check if mobile device
+    setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+  }, []);
 
   const updateBalance = async (address: string) => {
     const provider = new ethers.BrowserProvider(window.ethereum);
@@ -73,28 +79,52 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
   const connectWallet = async () => {
     try {
       if (typeof window.ethereum === 'undefined') {
-        throw new Error('MetaMask non è installato. Installalo per utilizzare questa funzionalità');
+        // Se siamo su mobile e MetaMask non è iniettato, proviamo a aprire l'app
+        if (isMobile) {
+          window.location.href = 'https://metamask.app.link/dapp/' + window.location.hostname;
+          throw new Error('Apri l\'app MetaMask per connetterti');
+        } else {
+          throw new Error('MetaMask non è installato. Installalo per utilizzare questa funzionalità');
+        }
       }
 
-      const accounts = await window.ethereum.request({ 
-        method: 'eth_requestAccounts' 
-      });
-
-      const currentChainId = await window.ethereum.request({ 
-        method: 'eth_chainId' 
-      });
-      
-      setChainId(parseInt(currentChainId, 16));
-
-      const account = accounts[0];
-      setAccount(account);
-      setIsConnected(true);
-      await updateBalance(account);
-
+      // Se siamo su mobile e MetaMask è installato, usiamo il deep linking
+      if (isMobile) {
+        try {
+          // Prova a connetterti normalmente
+          const accounts = await window.ethereum.request({ 
+            method: 'eth_requestAccounts' 
+          });
+          handleConnectionSuccess(accounts);
+        } catch (error) {
+          // Se fallisce, prova con il deep linking
+          window.location.href = 'https://metamask.app.link/dapp/' + window.location.hostname;
+          throw new Error('Apri l\'app MetaMask per connetterti');
+        }
+      } else {
+        // Connessione standard per desktop
+        const accounts = await window.ethereum.request({ 
+          method: 'eth_requestAccounts' 
+        });
+        handleConnectionSuccess(accounts);
+      }
     } catch (error: any) {
       console.error('Errore durante la connessione del wallet:', error);
       throw new Error(error.message || 'Errore durante la connessione del wallet');
     }
+  };
+
+  const handleConnectionSuccess = async (accounts: string[]) => {
+    const currentChainId = await window.ethereum.request({ 
+      method: 'eth_chainId' 
+    });
+    
+    setChainId(parseInt(currentChainId, 16));
+
+    const account = accounts[0];
+    setAccount(account);
+    setIsConnected(true);
+    await updateBalance(account);
   };
 
   const disconnectWallet = () => {
@@ -205,7 +235,8 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
       disconnectWallet,
       purchaseProduct,
       isProcessing,
-      switchToSepolia
+      switchToSepolia,
+      isMobile
     }}>
       {children}
     </Web3Context.Provider>
