@@ -9,19 +9,23 @@ import MyBookings from './pages/MyBookings/MyBookings'; // <-- Aggiungi questa i
 import './styles/global.css';
 import { Web3Provider } from './context/Web3Context';
 import Credits from './pages/Credits/Credits';
+import Instructions from './pages/Instructions/Instructions';
+import BottomNavbar from './components/BottomNavbar/BottomNavbar';
 
 const App = () => {
   return (
     <Web3Provider>
       <div className="app">
         <Navbar />
+        <BottomNavbar /> {/* <-- Aggiungi questa riga */}
         <main className="main">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/purchase-success" element={<PurchaseSuccess />} />
-            <Route path="/my-bookings" element={<MyBookings />} /> {/* <-- Aggiungi questa route */}
+            <Route path="/my-bookings" element={<MyBookings />} />
             <Route path="/credits" element={<Credits />} />
+            <Route path="/instructions" element={<Instructions />} />
           </Routes>
         </main>
       </div>

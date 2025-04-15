@@ -1,0 +1,34 @@
+/* src/pages/Instructions/Instructions.css */
+.instructions-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+  
+  .instruction-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  .instruction-card h2 {
+    color: #4f46e5;
+    margin-bottom: 0.5rem;
+  }
+  
+  .instruction-card p {
+    color: #4a4e69;
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 768px) {
+    .instructions-container {
+      padding: 0.5rem;
+    }
+    
+    .instruction-card {
+      padding: 1rem;
+    }
+  }

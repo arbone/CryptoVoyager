@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { WalletConnect } from '../WalletConnect/WalletConnect';
 
-const InfoIcon = () => (
+const MenuIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="28"
@@ -14,16 +14,20 @@ const InfoIcon = () => (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="info-icon"
+    className="menu-icon"
   >
-    <circle cx="12" cy="12" r="10"></circle>
-    <line x1="12" y1="16" x2="12" y2="12"></line>
-    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+    <line x1="3" y1="12" x2="21" y2="12"></line>
+    <line x1="3" y1="6" x2="21" y2="6"></line>
+    <line x1="3" y1="18" x2="21" y2="18"></line>
   </svg>
 );
 
 export const Navbar = () => {
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <nav className="navbar">
@@ -31,13 +35,33 @@ export const Navbar = () => {
         <Link to="/" className="navbar-logo">CryptoVoyager</Link>
         <div className="navbar-actions">
           <WalletConnect />
-          <button
-            onClick={() => navigate('/credits')}
-            className="info-button"
-            title="Credits"
-          >
-            <InfoIcon />
-          </button>
+          <div className="dropdown-container">
+            <button
+              onClick={toggleMenu}
+              className="menu-button"
+              aria-label="Menu"
+              aria-expanded={isMenuOpen}
+            >
+              <MenuIcon />
+            </button>
+            
+            {isMenuOpen && (
+              <div className="dropdown-menu">
+                <Link to="/" className="dropdown-item" onClick={closeMenu}>
+                  Home
+                </Link>
+                <Link to="/my-bookings" className="dropdown-item" onClick={closeMenu}>
+                  I Miei Ordini
+                </Link>
+                <Link to="/instructions" className="dropdown-item" onClick={closeMenu}>
+                  Istruzioni
+                </Link>
+                <Link to="/credits" className="dropdown-item" onClick={closeMenu}>
+                  Credits
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

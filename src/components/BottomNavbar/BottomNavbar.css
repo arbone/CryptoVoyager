@@ -1,0 +1,122 @@
+/* src/components/BottomNavbar/BottomNavbar.css */
+.bottom-navbar-container {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 999;
+  padding: 0 15px;
+}
+
+.button-container {
+  display: flex;
+  background-color: rgba(0, 73, 144, 0.9);
+  width: 280px;
+  height: 60px;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2),
+              0 5px 10px rgba(0, 73, 144, 0.4);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.button-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3),
+              0 8px 15px rgba(0, 73, 144, 0.5);
+}
+
+.button {
+  outline: 0 !important;
+  border: 0 !important;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+}
+
+.button:hover {
+  transform: scale(1.1) translateY(-5px);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.button:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease;
+}
+
+.button:hover .icon {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .bottom-navbar-container {
+    bottom: 15px;
+  }
+  
+  .button-container {
+    width: 90%;
+    max-width: 300px;
+    height: 55px;
+  }
+  
+  .button {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .button-container {
+    height: 50px;
+  }
+  
+  .button {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .button:hover::after {
+    font-size: 10px;
+    bottom: -22px;
+  }
+}

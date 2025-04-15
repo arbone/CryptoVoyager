@@ -27,5 +27,6 @@
   
   .main {
     padding-top: 70px; /* Per il navbar fisso */
+    padding-bottom: 70px; /* Per il footer */
   }
   
