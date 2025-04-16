@@ -61,14 +61,14 @@ export const WalletConnect = () => {
         {isConnected ? (
           <div className="wallet-info">
             <div className="balance">
-              <span>{Number(balance).toFixed(4)} ETH</span>
+              <span>{Number(balance).toFixed(4)} Ξ</span>
             </div>
             
             <button 
               onClick={handleDisconnect} 
               className="disconnect-button"
             >
-              Disconnect
+              Disconnetti
             </button>
           </div>
         ) : (
@@ -76,7 +76,7 @@ export const WalletConnect = () => {
             onClick={connectWallet} 
             className="connect-button"
           >
-            Connect Wallet
+            Connetti Wallet
           </button>
         )}
       </div>
@@ -84,20 +84,20 @@ export const WalletConnect = () => {
       {showConfirmDialog && (
         <div className="confirm-dialog-overlay">
           <div className="confirm-dialog">
-            <h3>Disconnect Wallet</h3>
-            <p>Are you sure you want to disconnect your wallet?</p>
+            <h3>Disconnetti Wallet</h3>
+            <p>Sei sicuro di voler disconnettere il tuo wallet?</p>
             <div className="confirm-dialog-buttons">
               <button 
                 onClick={confirmDisconnect}
                 className="confirm-button"
               >
-                Proceed
+                Procedi
               </button>
               <button 
                 onClick={cancelDisconnect}
                 className="cancel-button"
               >
-                Cancel
+                Annulla
               </button>
             </div>
           </div>

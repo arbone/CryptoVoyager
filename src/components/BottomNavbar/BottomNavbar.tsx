@@ -1,4 +1,3 @@
-// src/components/BottomNavbar/BottomNavbar.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './BottomNavbar.css';

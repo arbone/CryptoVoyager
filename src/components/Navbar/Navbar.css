@@ -1,71 +1,77 @@
 .navbar {
-  background-color: var(--card-bg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 15px; /* Distanza dal bordo superiore */
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 40px); /* Larghezza ridotta con margini */
-  max-width: 90%; /* Larghezza massima per schermi grandi */
-  border-radius: 30px; /* Bordi arrotondati */
-  z-index: 1000;
-  margin: 0 auto;
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Bordo sottile per effetto "glass" */
-  backdrop-filter: blur(10px); /* Effetto vetro smerigliato */
-  -webkit-backdrop-filter: blur(10px); /* Per Safari */
-}
-
-.navbar-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 60px;
-  padding: 0 20px; /* Padding laterale */
-}
-
-.navbar-logo {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #4f46e5;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.navbar-logo:hover {
-  color: #4338ca;
-  transform: scale(1.02);
-}
-
-.navbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* Effetto al passaggio del mouse per gli elementi della navbar */
-.navbar-actions a, .navbar-actions button {
-  transition: all 0.3s ease;
-}
-
-.navbar-actions a:hover, .navbar-actions button:hover {
-  transform: translateY(-2px);
-}
-
-/* Responsive per schermi piccoli */
-@media (max-width: 768px) {
-  .navbar {
-    top: 10px;
-    width: calc(100% - 20px);
-    border-radius: 12px;
+    background-color: var(--card-bg);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
   }
   
   .navbar-content {
-    height: 60px;
-    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
   }
   
   .navbar-logo {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4f46e5;
+    text-decoration: none;
+    cursor: pointer;
   }
-}
+
+  .navbar-logo:hover {
+    color: #4338ca;
+  }
+
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4f46e5;
+    text-decoration: none;
+  }
+  
+  .navbar-logo:hover {
+    color: #4338ca;
+  }
+  
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .info-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4f46e5;
+    transition: color 0.3s ease;
+  }
+  
+  .info-button:hover {
+    color: #4338ca;
+  }
+  
+  .info-icon {
+    width: 28px;
+    height: 28px;
+  }
