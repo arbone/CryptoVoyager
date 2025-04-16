@@ -44,15 +44,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
 
   return (
     <div className="filter-bar">
-      <div className="filter-header">
-        <h3 className="filter-title">
-          <span className="filter-icon">⏣</span>
-          Filter & Sort
-        </h3>
-      </div>
-
       <div className="filters-grid">
-        {/* Location Filter */}
         <div className="filter-group">
           <label className="filter-label">Location</label>
           <div className="select-wrapper">
@@ -61,7 +53,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
               value={currentFilters.location || ''}
               onChange={(e) => handleFilterChange('location', e.target.value || null)}
             >
-              <option value="">All Locations</option>
+              <option value="">Tutte</option>
               {locations.map(location => (
                 <option key={location} value={location}>{location}</option>
               ))}
@@ -70,16 +62,15 @@ const FilterBar: React.FC<FilterBarProps> = ({
           </div>
         </div>
 
-        {/* Category Filter */}
         <div className="filter-group">
-          <label className="filter-label">Category</label>
+          <label className="filter-label">Categoria</label>
           <div className="select-wrapper">
             <select 
               className="filter-select"
               value={currentFilters.category || ''}
               onChange={(e) => handleFilterChange('category', e.target.value || null)}
             >
-              <option value="">All Categories</option>
+              <option value="">Tutte</option>
               {categories.map(category => (
                 <option key={category} value={category}>{category}</option>
               ))}
@@ -88,46 +79,44 @@ const FilterBar: React.FC<FilterBarProps> = ({
           </div>
         </div>
 
-        {/* Price Range Filter */}
         <div className="filter-group">
-          <label className="filter-label">Price Range</label>
+          <label className="filter-label">Prezzo</label>
           <div className="price-range">
             <div className="price-input-wrapper">
               <input
                 type="number"
-                placeholder="Min"
+                placeholder="Minimo"
                 className="price-input"
-                value={currentFilters.priceRange?.min || ''}
+                value={currentFilters.priceRange?.min ?? ''}
                 onChange={(e) => handleFilterChange('priceRange', {
                   ...currentFilters.priceRange,
-                  min: e.target.value ? Number(e.target.value) : null
+                  min: e.target.value !== '' ? Number(e.target.value) : null
                 })}
               />
-              <span className="currency">€</span>
+              <span className="currency">Ξ</span>
             </div>
-            <span className="price-separator">to</span>
+            <span className="price-separator">a</span>
             <div className="price-input-wrapper">
               <input
                 type="number"
-                placeholder="Max"
+                placeholder="Massimo"
                 className="price-input"
-                value={currentFilters.priceRange?.max || ''}
+                value={currentFilters.priceRange?.max ?? ''}
                 onChange={(e) => handleFilterChange('priceRange', {
                   ...currentFilters.priceRange,
-                  max: e.target.value ? Number(e.target.value) : null
+                  max: e.target.value !== '' ? Number(e.target.value) : null
                 })}
               />
-              <span className="currency">€</span>
+              <span className="currency">Ξ</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Actions */}
       <div className="filter-actions">
         <button onClick={clearFilters} className="clear-filters">
           <span className="clear-icon">×</span>
-          Clear All
+          Reset filtri
         </button>
         <div className="select-wrapper">
           <select 
@@ -135,9 +124,9 @@ const FilterBar: React.FC<FilterBarProps> = ({
             className="sort-select"
             defaultValue="default"
           >
-            <option value="default">Recommended</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
+            <option value="default">Raccomandato</option>
+            <option value="price-asc">Meno costosi</option>
+            <option value="price-desc">Più costosi</option>
             <option value="rating">Top Rated</option>
           </select>
           <span className="select-arrow">▼</span>
