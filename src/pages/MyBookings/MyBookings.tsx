@@ -18,7 +18,7 @@ const MyBookings: React.FC = () => {
         <div className="empty-state">
           <p>Nessun ordine effettuato</p>
           <Link to="/" className="button primary">
-            Esplora i viaggi
+            Esplora viaggi
           </Link>
         </div>
       ) : (

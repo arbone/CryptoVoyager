@@ -161,6 +161,13 @@ h1 {
 .button.primary {
   background: #4361ee;
   color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .button.primary:hover {
@@ -172,6 +179,12 @@ h1 {
   background: white;
   color: #4361ee;
   border: 1px solid #4361ee;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .button.secondary:hover {

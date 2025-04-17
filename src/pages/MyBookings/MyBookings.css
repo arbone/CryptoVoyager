@@ -1,61 +1,155 @@
 .bookings-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1rem;
-  }
-  
-  .empty-state {
-    text-align: center;
-    padding: 3rem;
-    background: #f8f9fa;
-    border-radius: 12px;
-  }
-  
-  .orders-list {
-    display: grid;
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-  
-  .order-card {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  }
-  
-  .order-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .status-badge {
-    padding: 0.35rem 1rem;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
-  
-  .status-badge.completed {
-    background-color: #e6f7ed;
-    color: #28a745;
-  }
-  
-  .order-details {
-    display: grid;
-    gap: 0.5rem;
-    color: #4a4e69;
-  }
-  
-  .transaction-link {
-    color: #4361ee;
-    text-decoration: none;
-    margin-top: 0.5rem;
-    display: inline-block;
-  }
-  
-  .transaction-link:hover {
-    text-decoration: underline;
-  }
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.bookings-container h1 {
+  color: #1a1a1a;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.bookings-container h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: #f97316;
+  border-radius: 3px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  background: #f8fafc;
+  border-radius: 16px;
+  border: 1px dashed #e2e8f0;
+}
+
+.empty-state p {
+  color: #64748b;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.orders-list {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.order-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.order-header h3 {
+  color: #1a1a1a;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.status-badge {
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.status-badge.completed {
+  background-color: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.status-badge:not(.completed) {
+  background-color: #fff7ed;
+  color: #ea580c;
+  border: 1px solid #fed7aa;
+}
+
+.order-details {
+  display: grid;
+  gap: 0.75rem;
+  color: #4a5568;
+  font-size: 0.95rem;
+}
+
+.order-details p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.order-details p::before {
+  content: '•';
+  color: #f97316;
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.transaction-link {
+  color: #0ea5e9;
+  text-decoration: none;
+  margin-top: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.transaction-link:hover {
+  color: #0284c7;
+  text-decoration: underline;
+}
+
+.transaction-link::after {
+  content: '↗';
+  margin-left: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.button.primary {
+  background: #f97316;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-block;
+  height: 30px;
+}
+
+.button.primary:hover {
+  background: #ea580c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(249, 115, 22, 0.3);
+}
