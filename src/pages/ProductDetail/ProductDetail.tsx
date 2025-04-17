@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useWeb3 } from '../../context/Web3Context';
 import { PRODUCTS } from '../../constants';
@@ -9,14 +9,14 @@ const SEPOLIA_CHAIN_ID = 11155111;
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { 
-    isConnected, 
-    account, 
-    balance, 
-    purchaseProduct, 
+  const {
+    isConnected,
+    account,
+    balance,
+    purchaseProduct,
     isProcessing,
     chainId,
-    switchToSepolia 
+    switchToSepolia
   } = useWeb3();
 
   const [error, setError] = useState<string | null>(null);
@@ -25,6 +25,11 @@ const ProductDetail = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const product = PRODUCTS.find(p => p.id === Number(id));
+
+  useEffect(() => {
+    // Quando la pagina viene caricata, forza lo scroll immediato in cima senza animazione
+    window.scrollTo(0, 0);
+  }, [id]);
 
   if (!product) {
     return (
@@ -42,6 +47,9 @@ const ProductDetail = () => {
   const totalPrice = (Number(product.price) * participants).toFixed(3);
 
   const handlePurchaseClick = async () => {
+    // Ricarica la pagina in cima ogni volta che si clicca su "Prenota Ora"
+    window.scrollTo(0, 0);
+
     if (!isConnected) {
       setError('Connetti il tuo wallet per iniziare l\'avventura');
       return;
@@ -69,18 +77,18 @@ const ProductDetail = () => {
 
   const handleConfirmPurchase = async () => {
     try {
-      setShowConfirm(false); // Chiudi il modal prima di mostrare il loading
-      setIsLoading(true); // Mostra il loader
-      
+      setShowConfirm(false);
+      setIsLoading(true);
       const result = await purchaseProduct(totalPrice, product.id);
       if (result.status === 'success' && result.hash) {
-        navigate('/purchase-success', { 
-          state: { 
+        navigate('/purchase-success', {
+          state: {
             productName: product.name,
             transactionHash: result.hash,
             price: totalPrice,
             participants
-          }
+          },
+          replace: true
         });
       } else {
         setError(result.message);
@@ -150,14 +158,14 @@ const ProductDetail = () => {
             <div className="product-detail-participants">
               <label>Numero partecipanti</label>
               <div className="product-detail-participants-control">
-                <button 
+                <button
                   onClick={() => setParticipants(prev => Math.max(1, prev - 1))}
                   disabled={participants <= 1}
                 >
                   -
                 </button>
                 <span>{participants}</span>
-                <button 
+                <button
                   onClick={() => setParticipants(prev => Math.min(product.maxParticipants, prev + 1))}
                   disabled={participants >= product.maxParticipants}
                 >
@@ -180,93 +188,9 @@ const ProductDetail = () => {
             >
               {isProcessing ? 'Elaborazione...' : 'Prenota Ora'}
             </button>
-
-            {!isConnected && (
-              <p className="product-detail-connect-prompt">
-                Connetti il wallet per prenotare
-              </p>
-            )}
-
-            {chainId !== SEPOLIA_CHAIN_ID && isConnected && (
-              <div className="product-detail-network-notice">
-                Rete richiesta: Sepolia
-              </div>
-            )}
           </div>
         </div>
       </div>
-
-      {showConfirm && (
-        <div className="product-detail-modal-overlay">
-          <div className="product-detail-modal-content">
-            <div className="product-detail-modal-header">
-              <div className="product-detail-modal-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#f97316">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v2h-2v-2zm0-12h2v10h-2V5z"/>
-                </svg>
-              </div>
-              <h2>Conferma la tua esperienza</h2>
-              <p className="product-detail-modal-subtitle">Stai per prenotare un'avventura indimenticabile</p>
-            </div>
-            
-            <div className="product-detail-modal-summary">
-              <div className="product-detail-modal-summary-item">
-                <span className="product-detail-modal-summary-label">Esperienza:</span>
-                <span className="product-detail-modal-summary-value">{product.name}</span>
-              </div>
-              <div className="product-detail-modal-summary-item">
-                <span className="product-detail-modal-summary-label">Partecipanti:</span>
-                <span className="product-detail-modal-summary-value">{participants} persona{participants !== 1 ? 'e' : ''}</span>
-              </div>
-              <div className="product-detail-modal-summary-item">
-                <span className="product-detail-modal-summary-label">Durata:</span>
-                <span className="product-detail-modal-summary-value">{product.duration}</span>
-              </div>
-              <div className="product-detail-modal-summary-item">
-                <span className="product-detail-modal-summary-label">Località:</span>
-                <span className="product-detail-modal-summary-value">{product.location}</span>
-              </div>
-            </div>
-
-            <div className="product-detail-modal-total">
-              <span>Totale da pagare:</span>
-              <span className="product-detail-modal-total-amount">{totalPrice} ETH</span>
-            </div>
-
-            <div className="product-detail-modal-wallet">
-              <span>Wallet utilizzato:</span>
-              <span>{account}</span>
-            </div>
-
-            <div className="product-detail-modal-actions">
-              <button 
-                className="product-detail-cancel-button" 
-                onClick={() => setShowConfirm(false)}
-                disabled={isProcessing}
-              >
-                Torna indietro
-              </button>
-              <button 
-                className="product-detail-confirm-button" 
-                onClick={handleConfirmPurchase}
-                disabled={isProcessing}
-              >
-                {isProcessing ? 'Conferma in corso...' : 'Conferma Prenotazione'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {isLoading && (
-        <div className="product-detail-loading-overlay">
-          <div className="product-detail-loading-spinner"></div>
-          <p className="product-detail-loading-message">
-            Stiamo elaborando la tua prenotazione...<br />
-            Un attimo di pazienza mentre confermiamo la magia del tuo viaggio!
-          </p>
-        </div>
-      )}
     </div>
   );
 };
