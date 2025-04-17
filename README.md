@@ -1,30 +1,49 @@
-# Gianni's Sustainable Travel dApp
+CryptoVoyager 🌍✈️
 
-Una dApp e-commerce per l'agenzia di viaggi sostenibili di Gianni, che permette l'acquisto di pacchetti viaggio utilizzando ETH sulla rete Sepolia.
+CryptoVoyager è una dApp e-commerce innovativa per l'acquisto di pacchetti viaggio sostenibili utilizzando Ethereum. Il nostro obiettivo è unire la tecnologia blockchain con il turismo eco-sostenibile per creare esperienze di viaggio uniche e rispettose dell'ambiente.
 
-## Tecnologie Utilizzate
+🚀 Caratteristiche Principali
 
-- React
-- TypeScript
-- ethers.js/wagmi
-- Web3Modal
-- MetaMask integration
-- Vercel (deployment)
+Pagamenti in Crypto - Acquista viaggi utilizzando ETH sulla rete Sepolia
+Wallet Integration - Connessione seamless con MetaMask
+Design Responsivo - Esperienza utente ottimizzata per ogni dispositivo
+Catalogo Dinamico - Ampia selezione di viaggi sostenibili
+Real-time Updates - Monitoraggio saldo e stato transazioni
 
-## Caratteristiche
+🛠 Tecnologie
 
-- Connessione wallet (MetaMask)
-- Visualizzazione saldo ETH
-- Galleria prodotti
-- Transazioni sulla rete Sepolia
-- UI/UX intuitiva
+React + TypeScript
+Ethers.js/Wagmi
+Web3Modal
+MetaMask
+Vercel Deployment
 
-## Setup Locale
+📦 Installazione
 
-1. Clone il repository
-2. `npm install`
-3. `npm start`
+# Clona il repositorygit clone https://github.com/arbone/cryptovoyager.git Installa le dipendenzecd cryptovoyagernpm install# Avvia l'ambiente di svilupponpm start
 
-## Test
+🔧 Configurazione
 
-Utilizzare la rete di test Sepolia e ottenere token di test da [Sepolia Faucet](https://sepoliafaucet.com)
+Installa MetaMask nel tuo browser
+Connettiti alla rete Sepolia
+Ottieni ETH di test da Sepolia Faucet
+
+💻 Sviluppo Locale
+
+# Testnpm test# Buildnpm run build# Lintnpm run lint
+
+🌐 Deployment
+
+L'applicazione è automaticamente deployata su Vercel ad ogni push sul branch main.
+
+🤝 Contribuire
+
+Fork il progetto
+Crea il tuo Feature Branch (git checkout -b feature/AmazingFeature)
+Commit i tuoi cambiamenti (git commit -m 'Add some AmazingFeature')
+Push al Branch (git push origin feature/AmazingFeature)
+Apri una Pull Request
+
+📄 Licenza
+
+Distribuito sotto licenza MIT. Vedi LICENSE per maggiori informazioni.
