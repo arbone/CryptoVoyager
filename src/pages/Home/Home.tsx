@@ -1,4 +1,3 @@
-// src/pages/Home/Home.tsx
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { PRODUCTS } from '../../constants';
 import ProductCard from '../../components/ProductCard/ProductCard';
@@ -62,12 +61,10 @@ const Home: React.FC = () => {
     return result;
   }, [filters, sortBy]);
 
-  // Reset visible items when filters change
   useEffect(() => {
     setVisibleItems(ITEMS_PER_LOAD);
   }, [filters, sortBy]);
 
-  // Infinite scroll logic
   useEffect(() => {
     const handleScroll = () => {
       if (isLoading || visibleItems >= filteredAndSortedProducts.length) return;
@@ -76,11 +73,9 @@ const Home: React.FC = () => {
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
 
-      // If we're near the bottom (100px threshold)
       if (windowHeight + scrollTop >= documentHeight - 100) {
         setIsLoading(true);
         
-        // Simulate loading delay
         setTimeout(() => {
           setVisibleItems(prev => Math.min(prev + ITEMS_PER_LOAD, filteredAndSortedProducts.length));
           setIsLoading(false);
@@ -98,10 +93,10 @@ const Home: React.FC = () => {
     <div className="home-container">
       <section className="hero-section">
         <h1 className="hero-title">
-          Sustainable Travel Experiences
+          Esperienze e viaggi sostenibili
         </h1>
         <p className="hero-subtitle">
-          Discover eco-friendly travel packages that make a positive impact
+          Scopri i nostri pacchetti viaggio eco-friendly e le esperienze uniche che offriamo.
         </p>
       </section>
   
@@ -117,7 +112,7 @@ const Home: React.FC = () => {
       <section className="products-section">
         {currentProducts.length === 0 ? (
           <div className="no-products">
-            No products match your filters
+            Nessun prodotto trovato
           </div>
         ) : (
           <>
@@ -132,7 +127,7 @@ const Home: React.FC = () => {
                 ref={loaderRef}
                 className="loader"
               >
-                Loading more experiences...
+                Caricando altre esperienze per te...
               </div>
             )}
           </>

@@ -1,4 +1,3 @@
-// src/pages/PurchaseSuccess/PurchaseSuccess.tsx
 import React, { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import './PurchaseSuccess.css';
@@ -23,7 +22,6 @@ const PurchaseSuccess: React.FC = () => {
   const location = useLocation();
   const { productName, transactionHash, amount } = location.state as OrderData || {};
 
-  // Salva l'ordine nello storage al caricamento della pagina
   useEffect(() => {
     if (transactionHash) {
       const orders: Order[] = JSON.parse(localStorage.getItem('orders') || '[]');
@@ -63,7 +61,7 @@ const PurchaseSuccess: React.FC = () => {
         </div>
         
         <h1>Acquisto Completato!</h1>
-        <p className="success-message">Grazie per aver acquistato <span className="highlight">{productName}</span></p>
+        <p className="success-message">Grazie per l'acquisto! <span className="highlight">{productName}</span></p>
         
         {transactionHash && (
           <div className="transaction-section">

@@ -1,4 +1,3 @@
-// src/context/Web3Context.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { GIANNI_WALLET_ADDRESS } from '../constants';
@@ -79,7 +78,6 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
   const connectWallet = async () => {
     try {
       if (typeof window.ethereum === 'undefined') {
-        // Se siamo su mobile e MetaMask non è iniettato, proviamo a aprire l'app
         if (isMobile) {
           window.location.href = 'https://metamask.app.link/dapp/' + window.location.hostname;
           throw new Error('Apri l\'app MetaMask per connetterti');
@@ -88,21 +86,17 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       }
 
-      // Se siamo su mobile e MetaMask è installato, usiamo il deep linking
       if (isMobile) {
         try {
-          // Prova a connetterti normalmente
           const accounts = await window.ethereum.request({ 
             method: 'eth_requestAccounts' 
           });
           handleConnectionSuccess(accounts);
         } catch (error) {
-          // Se fallisce, prova con il deep linking
           window.location.href = 'https://metamask.app.link/dapp/' + window.location.hostname;
           throw new Error('Apri l\'app MetaMask per connetterti');
         }
       } else {
-        // Connessione standard per desktop
         const accounts = await window.ethereum.request({ 
           method: 'eth_requestAccounts' 
         });

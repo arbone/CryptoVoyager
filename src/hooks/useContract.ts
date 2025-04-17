@@ -1,4 +1,3 @@
-// src/hooks/useContract.ts
 import { ethers } from 'ethers';
 import { CONTRACT_ADDRESS } from '../config/contract';
 import TravelBookingABI from '../abi/TravelBooking.json';

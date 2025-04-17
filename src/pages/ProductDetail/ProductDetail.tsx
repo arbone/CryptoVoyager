@@ -22,6 +22,7 @@ const ProductDetail = () => {
   const [error, setError] = useState<string | null>(null);
   const [showConfirm, setShowConfirm] = useState(false);
   const [participants, setParticipants] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const product = PRODUCTS.find(p => p.id === Number(id));
 
@@ -68,6 +69,7 @@ const ProductDetail = () => {
 
   const handleConfirmPurchase = async () => {
     try {
+      setIsLoading(true);
       const result = await purchaseProduct(totalPrice, product.id);
       if (result.status === 'success' && result.hash) {
         setShowConfirm(false);
@@ -86,6 +88,8 @@ const ProductDetail = () => {
     } catch (err: any) {
       setError(err.message || 'Errore durante la prenotazione');
       setShowConfirm(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -220,6 +224,16 @@ const ProductDetail = () => {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {isLoading && (
+        <div className="product-detail-loading-overlay">
+          <div className="product-detail-loading-spinner"></div>
+          <p className="product-detail-loading-message">
+            Stiamo elaborando la tua prenotazione...<br />
+            Un attimo di pazienza mentre confermiamo la magia del tuo viaggio!
+          </p>
         </div>
       )}
     </div>
