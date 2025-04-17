@@ -160,13 +160,11 @@
   
   .confirm-dialog {
     padding: 1.5rem;
+    font-size: 0.9rem;
+    max-width: 80%;
   }
   
   .confirm-button, .cancel-button {
     padding: 0.6rem 1rem;
-  }
-
-  .confirm-dialog-overlay {
-    width: 85%;
   }
 }
