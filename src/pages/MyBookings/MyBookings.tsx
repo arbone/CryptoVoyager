@@ -17,9 +17,6 @@ const MyBookings: React.FC = () => {
       {orders.length === 0 ? (
         <div className="empty-state">
           <p>Nessun ordine effettuato</p>
-          <Link to="/" className="button primary">
-            Esplora viaggi
-          </Link>
         </div>
       ) : (
         <div className="orders-list">
