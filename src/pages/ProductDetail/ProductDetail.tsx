@@ -69,10 +69,11 @@ const ProductDetail = () => {
 
   const handleConfirmPurchase = async () => {
     try {
-      setIsLoading(true);
+      setShowConfirm(false); // Chiudi il modal prima di mostrare il loading
+      setIsLoading(true); // Mostra il loader
+      
       const result = await purchaseProduct(totalPrice, product.id);
       if (result.status === 'success' && result.hash) {
-        setShowConfirm(false);
         navigate('/purchase-success', { 
           state: { 
             productName: product.name,
@@ -83,11 +84,9 @@ const ProductDetail = () => {
         });
       } else {
         setError(result.message);
-        setShowConfirm(false);
       }
     } catch (err: any) {
       setError(err.message || 'Errore durante la prenotazione');
-      setShowConfirm(false);
     } finally {
       setIsLoading(false);
     }
