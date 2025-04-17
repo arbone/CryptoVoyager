@@ -9,7 +9,6 @@ import MyBookings from './pages/MyBookings/MyBookings';
 import './styles/global.css';
 import { Web3Provider } from './context/Web3Context';
 import Credits from './pages/Credits/Credits';
-import Instructions from './pages/Instructions/Instructions';
 import BottomNavbar from './components/BottomNavbar/BottomNavbar';
 
 const App = () => {
@@ -25,7 +24,6 @@ const App = () => {
             <Route path="/purchase-success" element={<PurchaseSuccess />} />
             <Route path="/my-bookings" element={<MyBookings />} />
             <Route path="/credits" element={<Credits />} />
-            <Route path="/instructions" element={<Instructions />} />
           </Routes>
         </main>
       </div>

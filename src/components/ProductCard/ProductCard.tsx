@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useWeb3 } from '../../context/Web3Context';
 import { Product } from '../../types';
 import './ProductCard.css';
@@ -13,6 +13,7 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const { isConnected, purchaseProduct } = useWeb3();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,6 +41,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
       }
     };
   }, []);
+
+  const handleNavigate = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo(0, 0); // Reset scroll position
+    navigate(`/product/${product.id}`);
+  };
 
   const handleBooking = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -79,10 +86,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
   }
 
   return (
-    <Link
-      to={`/product/${product.id}`}
+    <div
+      onClick={handleNavigate}
       className="product-card-link"
-      style={{ textDecoration: 'none', color: 'inherit' }}
+      style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
     >
       <div
         ref={cardRef}
@@ -121,12 +128,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
             <span className="product-price">{product.price} ETH</span>
             <div className="product-actions">
               <span className="box-style">{product.duration}</span>
-              <button className="book-button">{'Prenota Ora'}</button>
+              <button 
+                className="book-button"
+                onClick={handleNavigate}
+              >
+                {'Prenota Ora'}
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

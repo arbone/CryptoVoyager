@@ -126,11 +126,14 @@
 }
 
 .product-detail-booking-section {
-  position: sticky;
-  top: 2rem;
-  align-self: start;
-  margin-top: 7rem;
+  scroll-margin-top: 100px;
+  scroll-snap-margin-top: 100px; /* Per browser più vecchi */
 }
+
+.product-detail-booking-section:target {
+  animation: highlightBooking 2s ease;
+}
+
 
 .product-detail-booking-card {
   padding: 2rem;
@@ -304,7 +307,7 @@
   background: white;
   padding: 2rem;
   border-radius: 16px;
-  width: 90%;
+  width: 80%;
   max-width: 500px;
 }
 
@@ -502,6 +505,8 @@
   transition: all 0.2s;
 }
 
+
+
 @keyframes product-detail-spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -551,3 +556,21 @@
     padding: 1.5rem;
   }
 }
+
+  @keyframes highlightBooking {
+    0% {
+      background-color: rgba(249, 115, 22, 0.1);
+      box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.3);
+    }
+    100% {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  /* Miglioramenti per mobile */
+  @media (max-width: 768px) {
+    .product-detail-booking-section {
+      scroll-margin-top: 80px;
+    }
+  }

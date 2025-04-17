@@ -8,7 +8,28 @@ const Credits = () => {
   return (
     <div className="credits-page">
 
+    <div className="instructions-container">
+          <h1>Come Funziona</h1>
+          <div className="instruction-card">
+            <h2>1. Connetti il tuo Wallet</h2>
+            <p>Usa il pulsante in alto a destra per connettere il tuo wallet MetaMask. Usa Chrome su Desktop e la relativa estensione. Da mobile, quando cliccherai su connetti, verrai renderizzato sul browser di Metamsk in cui dovrai di nuovo cliccare "Connetti" per autorizzare il link al tuo wallet.</p>
+          </div>
+          <div className="instruction-card">
+            <h2>2. Scegli il tuo viaggio</h2>
+            <p>Naviga tra i pacchetti disponibili e seleziona quello che preferisci, scegli il numero di partecipanti e clicca su Prenota.</p>
+          </div>
+          <div className="instruction-card">
+            <h2>3. Completa l'acquisto</h2>
+            <p>Conferma la transazione dal tuo wallet. Una volta autorizzata ti verrà data conferma e numero di transazione direttamente verificabile su Etherscan!</p>
+          </div>
+          <div className="instruction-card">
+            <h2>4. Visualizza i tuoi ordini</h2>
+            <p>Tutti i tuoi acquisti sono salvati nella sezione "I Miei Ordini" che trovi nella bottombar, pulsante centrale. Buon viaggio!</p>
+          </div>
+        </div>
+
       <div className="credits-content">
+        
         <div className="credits-container">
           <h1>Credits</h1>
 
@@ -71,14 +92,24 @@ const Credits = () => {
           <div className="credits-section">
             <h2>Tecnologie</h2>
             <div className="tech-grid">
-              <div className="tech-item">React</div>
+              <div className="tech-item">React 18</div>
               <div className="tech-item">CSS3</div>
-              <div className="tech-item">ethers.js</div>
+              <div className="tech-item">ethers.js v6</div>
+              <div className="tech-item">TypeScript</div>
+              <div className="tech-item">HTML5</div>
+              <div className="tech-item">React Router v6</div>
+              <div className="tech-item">Web3 Modal</div>
+              <div className="tech-item">ESLint</div>
+              <div className="tech-item">dotenv</div>
+              <div className="tech-item">Node.js</div>
+              <div className="tech-item">React Scripts</div>
+              <div className="tech-item">TypeScript Compiler</div>
+
             </div>
           </div>
 
           <div className="credits-section">
-            <h2>Curiosità</h2>
+            <h2>Info sul progetto</h2>
             <p>
               Questo progetto è stato realizzato per supportare Gianni e la sua agenzia di viaggi consapevoli.
               Tutti i dettagli sono stati curati per unire innovazione, sostenibilità e blockchain.
@@ -90,7 +121,9 @@ const Credits = () => {
           </p>
         </div>
       </div>
+
     </div>
+    
   );
 };
 
