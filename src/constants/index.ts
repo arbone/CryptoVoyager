@@ -38,7 +38,7 @@ export const PRODUCTS: Product[] = [
     price: "0.4",
     image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4",
     duration: "5 giorni",
-    location: "Bali",
+    location: "Indonesia",
     category: "culturale",
     features: ["Alloggio eco-sostenibile", "Arti tradizionali", "Agricoltura biologica"],
     rating: 4.6,
