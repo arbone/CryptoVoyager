@@ -40,7 +40,7 @@
   }
   
   .navbar-logo {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #4f46e5;
     text-decoration: none;
@@ -74,4 +74,10 @@
   .info-icon {
     width: 28px;
     height: 28px;
+  }
+
+  @media (max-width: 480px) {
+    .navba-logo {
+      font-size: 0.2rem;
+    }
   }
