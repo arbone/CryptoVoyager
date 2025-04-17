@@ -56,10 +56,9 @@
   gap: 2rem;
 }
 
-.product-detail-header h1 {
-  font-size: 2.5rem;
-  color: #1a1a1a;
-  margin-bottom: 1rem;
+.product-detail-modal-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .product-detail-description {
@@ -310,10 +309,11 @@
 }
 
 .product-detail-modal-content h2 {
+  font-size: 1.5rem;
   color: #1a1a1a;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  margin-bottom: 0.5rem;
 }
+
 
 .product-detail-modal-details {
   margin-bottom: 2rem;
@@ -400,6 +400,106 @@
   border-top: 5px solid #f97316;
   border-radius: 50%;
   animation: product-detail-spin 1s linear infinite;
+}
+
+.product-detail-modal-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  background-color: #fff5f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-detail-modal-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.product-detail-modal-subtitle {
+  color: #64748b;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.product-detail-modal-summary {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.product-detail-modal-summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.product-detail-modal-summary-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.product-detail-modal-summary-label {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.product-detail-modal-summary-value {
+  color: #1a1a1a;
+  font-weight: 600;
+  text-align: right;
+}
+
+.product-detail-modal-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #f0fdf4;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+.product-detail-modal-total-amount {
+  font-weight: 700;
+  color: #0ea5e9;
+  font-size: 1.3rem;
+}
+
+.product-detail-modal-wallet {
+  font-size: 0.85rem;
+  color: #64748b;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  word-break: break-all;
+  padding: 0.5rem;
+  background: #f8fafc;
+  border-radius: 6px;
+}
+
+.product-detail-modal-wallet span:first-child {
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+.product-detail-modal-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.product-detail-confirm-button {
+  background: #f97316;
+  color: white;
+  flex: 2;
+  padding: 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.2s;
 }
 
 @keyframes product-detail-spin {

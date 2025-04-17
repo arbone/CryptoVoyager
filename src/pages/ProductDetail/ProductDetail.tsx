@@ -199,27 +199,59 @@ const ProductDetail = () => {
       {showConfirm && (
         <div className="product-detail-modal-overlay">
           <div className="product-detail-modal-content">
-            <h2>Conferma Prenotazione</h2>
-            <div className="product-detail-modal-details">
-              <p className="product-detail-modal-destination">{product.name}</p>
-              <p className="product-detail-modal-participants">Partecipanti: {participants}</p>
-              <p className="product-detail-modal-price">{totalPrice} ETH</p>
-              <p className="product-detail-modal-wallet">{account}</p>
+            <div className="product-detail-modal-header">
+              <div className="product-detail-modal-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#f97316">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v2h-2v-2zm0-12h2v10h-2V5z"/>
+                </svg>
+              </div>
+              <h2>Conferma la tua esperienza</h2>
+              <p className="product-detail-modal-subtitle">Stai per prenotare un'avventura indimenticabile</p>
             </div>
+            
+            <div className="product-detail-modal-summary">
+              <div className="product-detail-modal-summary-item">
+                <span className="product-detail-modal-summary-label">Esperienza:</span>
+                <span className="product-detail-modal-summary-value">{product.name}</span>
+              </div>
+              <div className="product-detail-modal-summary-item">
+                <span className="product-detail-modal-summary-label">Partecipanti:</span>
+                <span className="product-detail-modal-summary-value">{participants} persona{participants !== 1 ? 'e' : ''}</span>
+              </div>
+              <div className="product-detail-modal-summary-item">
+                <span className="product-detail-modal-summary-label">Durata:</span>
+                <span className="product-detail-modal-summary-value">{product.duration}</span>
+              </div>
+              <div className="product-detail-modal-summary-item">
+                <span className="product-detail-modal-summary-label">Località:</span>
+                <span className="product-detail-modal-summary-value">{product.location}</span>
+              </div>
+            </div>
+
+            <div className="product-detail-modal-total">
+              <span>Totale da pagare:</span>
+              <span className="product-detail-modal-total-amount">{totalPrice} ETH</span>
+            </div>
+
+            <div className="product-detail-modal-wallet">
+              <span>Wallet utilizzato:</span>
+              <span>{account}</span>
+            </div>
+
             <div className="product-detail-modal-actions">
-              <button 
-                className="product-detail-confirm-button" 
-                onClick={handleConfirmPurchase}
-                disabled={isProcessing}
-              >
-                Conferma
-              </button>
               <button 
                 className="product-detail-cancel-button" 
                 onClick={() => setShowConfirm(false)}
                 disabled={isProcessing}
               >
-                Annulla
+                Torna indietro
+              </button>
+              <button 
+                className="product-detail-confirm-button" 
+                onClick={handleConfirmPurchase}
+                disabled={isProcessing}
+              >
+                {isProcessing ? 'Conferma in corso...' : 'Conferma Prenotazione'}
               </button>
             </div>
           </div>
