@@ -1,5 +1,3 @@
-// src/types/index.ts
-
 export interface Product {
   id: number;
   name: string;
@@ -8,7 +6,7 @@ export interface Product {
   image: string;
   duration: string;
   location: string;
-  category: 'eco' | 'adventure' | 'cultural';
+  category: 'eco' | 'avventura' | 'culturale';
   features: string[];
   rating: number;
   maxParticipants: number;
