@@ -90,15 +90,6 @@ const PurchaseSuccess: React.FC = () => {
             </div>
           </div>
         )}
-
-        <div className="action-buttons">
-          <Link to="/" className="button primary">
-            Torna alla Home
-          </Link>
-          <Link to="/my-bookings" className="button secondary">
-            I Miei Ordini
-          </Link>
-        </div>
       </div>
     </div>
   );
