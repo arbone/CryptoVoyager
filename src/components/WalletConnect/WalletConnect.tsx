@@ -6,7 +6,7 @@ export const WalletConnect = () => {
   const { isConnected, account, balance, connectWallet, disconnectWallet } = useWeb3();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [showMetaMaskOverlay, setShowMetaMaskOverlay] = useState(false);
-  const [accountName, setAccountName] = useState<string>('');
+  const [accountName, setAccountName] = useState('');
 
   useEffect(() => {
     const getAccountName = async () => {
@@ -31,11 +31,9 @@ export const WalletConnect = () => {
 
   const handleConnectWallet = async () => {
     if (window.ethereum) {
-      // Attempt to connect wallet
       await connectWallet();
       setShowMetaMaskOverlay(false);
     } else {
-      // Show overlay if MetaMask is not available
       setShowMetaMaskOverlay(true);
     }
   };
@@ -69,8 +67,18 @@ export const WalletConnect = () => {
             <div className="balance">
               <span>{Number(balance).toFixed(4)} Ξ</span>
             </div>
-            <button onClick={handleDisconnect} className="disconnect-button">
-              Disconnetti
+            <button 
+              onClick={handleDisconnect} 
+              className="disconnect-button"
+              aria-label="Disconnetti wallet"
+            >
+              <svg 
+                viewBox="0 0 1200 1200" 
+                className="disconnect-icon"
+                fill="currentColor"
+              >
+                <path d="M513.94,0v693.97H686.06V0H513.94z M175.708,175.708 C67.129,284.287,0,434.314,0,600c0,331.371,268.629,600,600,600s600-268.629,600-600c0-165.686-67.13-315.713-175.708-424.292 l-120.85,120.85C981.102,374.216,1029.126,481.51,1029.126,600c0,236.981-192.146,429.126-429.126,429.126 c-236.981,0-429.126-192.145-429.126-429.126c0-118.49,48.025-225.784,125.684-303.442L175.708,175.708z" />
+              </svg>
             </button>
           </div>
         ) : (

@@ -1,6 +1,8 @@
 .wallet-connect {
   display: flex;
   align-items: center;
+  justify-content: flex-end; /* Aggiunto */
+  min-width: 150px; /* Aggiunto */
 }
 
 .wallet-info {
@@ -12,7 +14,9 @@
   border-radius: 20px;
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-left: auto; /* Aggiunto */
 }
+
 
 .balance {
   color: var(--primary-color, #4f46e5);
@@ -39,9 +43,21 @@
 }
 
 .disconnect-button {
-  background: rgba(255, 59, 48, 0.1);
-  color: var(--error-color, #FF3B30);
-  border: 1px solid rgba(255, 59, 48, 0.2);
+  background: transparent;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.disconnect-icon {
+  width: 24px;
+  height: 24px;
+  color: #ef4444; /* Red color for the icon */
+  transition: all 0.2s ease;
 }
 
 .connect-button:hover {
@@ -50,14 +66,15 @@
   box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
 }
 
-.disconnect-button:hover {
-  background: rgba(255, 59, 48, 0.2);
-  transform: translateY(-1px);
+.disconnect-button:hover .disconnect-icon {
+  color: #dc2626; /* Darker red on hover */
+  transform: scale(1.1);
 }
 
+
 .connect-button:active,
-.disconnect-button:active {
-  transform: translateY(0);
+.disconnect-button:active .disconnect-icon {
+  transform: scale(0.95);
 }
 
 .confirm-dialog-overlay,
@@ -159,3 +176,22 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 768px) {
+  .navbar-content {
+    padding: 0 10px;
+  }
+
+  .wallet-connect {
+    min-width: auto;
+  }
+
+  .wallet-info {
+    padding: 0.5rem;
+  }
+
+  .balance {
+    font-size: 0.9rem;
+  }
+}
+
