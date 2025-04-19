@@ -5,7 +5,7 @@ import { useWeb3 } from '../../context/Web3Context';
 export const WalletConnect = () => {
   const { isConnected, account, balance, connectWallet, disconnectWallet } = useWeb3();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [showMetaMaskOverlay, setShowMetaMaskOverlay] = useState(false); // Added state for MetaMask overlay
+  const [showMetaMaskOverlay, setShowMetaMaskOverlay] = useState(false);
   const [accountName, setAccountName] = useState<string>('');
 
   useEffect(() => {
