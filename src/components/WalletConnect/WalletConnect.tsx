@@ -10,6 +10,9 @@ export const WalletConnect = () => {
 
   // Detect if user is on mobile
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  
+  // Produzione URL
+  const DAPP_URL = 'https://cryptovoyager.vercel.app/';
 
   useEffect(() => {
     const getAccountName = async () => {
@@ -34,22 +37,21 @@ export const WalletConnect = () => {
 
   const handleConnectWallet = async () => {
     if (isMobile) {
-      // Check if MetaMask is installed
-      if (typeof window.ethereum !== 'undefined') {
-        // If MetaMask is installed, open the dapp in MetaMask browser
-        const dappUrl = window.location.href;
-        const metamaskAppDeepLink = `metamask://dapp/${dappUrl}`;
-        window.location.href = metamaskAppDeepLink;
-      } else {
-        // If MetaMask is not installed, redirect to app store
+      // Check if MetaMask is installed by checking if the metamask URL scheme can be opened
+      const metamaskDeepLink = `metamask://dapp/${DAPP_URL}`;
+      
+      // Try to open MetaMask first
+      window.location.href = metamaskDeepLink;
+      
+      // Set a timeout to redirect to app store if MetaMask doesn't open
+      setTimeout(() => {
+        // If we're still here after timeout, MetaMask is not installed
         if (/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
-          // iOS
           window.location.href = 'https://apps.apple.com/us/app/metamask/id1438144202';
         } else {
-          // Android
           window.location.href = 'https://play.google.com/store/apps/details?id=io.metamask';
         }
-      }
+      }, 1000); // 1 second timeout
     } else {
       // Desktop flow
       if (window.ethereum) {
