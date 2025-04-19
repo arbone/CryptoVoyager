@@ -1,13 +1,14 @@
 .home-container {
-    max-width: 90%;
+    width: 100%;
+    max-width: var(--container-width);
     margin: 0 auto;
-    padding: 20px;
+    padding: var(--container-padding);
     animation: fadeIn 0.5s ease-out;
   }
   
   .hero-section {
     text-align: center;
-    padding: 60px 20px;
+    padding: 60px var(--container-padding);
     margin-bottom: 40px;
     border-radius: 16px;
     color: white;
@@ -15,6 +16,7 @@
     transition: transform 0.3s ease;
     position: relative;
     overflow: hidden;
+    width: 100%;
   }
 
   .hero-section::before {
@@ -66,9 +68,10 @@
   
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 24px;
     padding: 20px 0;
+    width: 100%;
   }
   
   .loader {
@@ -113,10 +116,10 @@
   
   @media (max-width: 768px) {
     .hero-section {
-      padding: 40px 20px;
+      padding: 40px var(--container-padding);
       margin-bottom: 20px;
     }
-    
+  
     .products-grid {
       grid-template-columns: 1fr;
       gap: 16px;
