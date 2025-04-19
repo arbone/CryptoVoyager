@@ -8,6 +8,9 @@ export const WalletConnect = () => {
   const [showMetaMaskOverlay, setShowMetaMaskOverlay] = useState(false);
   const [accountName, setAccountName] = useState('');
 
+  // Detect if user is on mobile
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
   useEffect(() => {
     const getAccountName = async () => {
       if (window.ethereum && account) {
@@ -30,11 +33,31 @@ export const WalletConnect = () => {
   }, [account]);
 
   const handleConnectWallet = async () => {
-    if (window.ethereum) {
-      await connectWallet();
-      setShowMetaMaskOverlay(false);
+    if (isMobile) {
+      // Check if MetaMask is installed
+      if (typeof window.ethereum !== 'undefined') {
+        // If MetaMask is installed, open the dapp in MetaMask browser
+        const dappUrl = window.location.href;
+        const metamaskAppDeepLink = `metamask://dapp/${dappUrl}`;
+        window.location.href = metamaskAppDeepLink;
+      } else {
+        // If MetaMask is not installed, redirect to app store
+        if (/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
+          // iOS
+          window.location.href = 'https://apps.apple.com/us/app/metamask/id1438144202';
+        } else {
+          // Android
+          window.location.href = 'https://play.google.com/store/apps/details?id=io.metamask';
+        }
+      }
     } else {
-      setShowMetaMaskOverlay(true);
+      // Desktop flow
+      if (window.ethereum) {
+        await connectWallet();
+        setShowMetaMaskOverlay(false);
+      } else {
+        setShowMetaMaskOverlay(true);
+      }
     }
   };
 
@@ -106,8 +129,8 @@ export const WalletConnect = () => {
         </div>
       )}
 
-      {/* MetaMask compatibility overlay */}
-      {showMetaMaskOverlay && (
+      {/* MetaMask compatibility overlay - shown only on desktop */}
+      {!isMobile && showMetaMaskOverlay && (
         <div className="metamask-overlay">
           <div className="metamask-dialog">
             <h3>Browser non compatibile con Metamask</h3>
