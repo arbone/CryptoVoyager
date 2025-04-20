@@ -565,7 +565,6 @@
   }
 }
 
-/* Miglioramenti per mobile */
 @media (max-width: 768px) {
   .product-detail-booking-section {
     scroll-margin-top: 80px;

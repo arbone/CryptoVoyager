@@ -185,7 +185,7 @@
 }
 
 .safari-warning {
-  position: relative; /* Aggiunto per posizionare la X */
+  position: relative;
   background: white;
   border-radius: 12px;
   padding: 24px;
@@ -216,7 +216,7 @@
   color: #2b2d42;
   margin-bottom: 16px;
   font-size: 1.5rem;
-  padding-right: 30px; /* Spazio per la X */
+  padding-right: 30px;
 
 .safari-warning p {
   color: #4a4e69;

@@ -44,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, loading, index = 0 }
 
   const handleNavigate = (e: React.MouseEvent) => {
     e.preventDefault();
-    window.scrollTo(0, 0); // Reset scroll position
+    window.scrollTo(0, 0);
     navigate(`/product/${product.id}`);
   };
 
