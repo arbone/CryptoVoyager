@@ -185,13 +185,18 @@
 }
 
 .safari-warning {
-  position: relative;
   background: white;
   border-radius: 12px;
   padding: 24px;
   max-width: 400px;
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.safari-warning h3 {
+  color: #2b2d42;
+  margin-bottom: 16px;
+  font-size: 1.5rem;
 }
 
 .safari-warning-close {
@@ -210,13 +215,6 @@
 
 .safari-warning-close:hover {
   color: #333;
-}
-
-.safari-warning h3 {
-  color: #2b2d42;
-  margin-bottom: 16px;
-  font-size: 1.5rem;
-  padding-right: 30px;
 }
 
 .safari-warning p {
