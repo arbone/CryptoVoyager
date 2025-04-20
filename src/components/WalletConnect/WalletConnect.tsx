@@ -57,6 +57,8 @@ export const WalletConnect = () => {
 
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const [showSafariWarning, setShowSafariWarning] = useState(false);
+
 
   return (
     <>
@@ -76,11 +78,18 @@ export const WalletConnect = () => {
           </div>
         ) : (
           <button 
-            onClick={connectWallet} 
+            onClick={() => {
+              if (!isMobile && isSafari) {
+                setShowSafariWarning(true);
+              } else {
+                connectWallet();
+              }
+            }} 
             className="connect-button"
           >
             Connetti Wallet
           </button>
+
         )}
       </div>
 
@@ -107,9 +116,16 @@ export const WalletConnect = () => {
         </div>
       )}
 
-      {!isMobile && isSafari && (
+      {!isMobile && isSafari && showSafariWarning && (
         <div className="safari-warning-overlay">
           <div className="safari-warning">
+            <button 
+              onClick={() => setShowSafariWarning(false)} 
+              className="safari-warning-close"
+              aria-label="Chiudi avviso"
+            >
+              ×
+            </button>
             <h3>Browser non supportato</h3>
             <p>Safari non supporta MetaMask. Per utilizzare questa dApp, installa MetaMask su un browser compatibile come Chrome o Firefox.</p>
             <button 
