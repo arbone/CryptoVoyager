@@ -17,7 +17,8 @@
 .balance {
   color: var(--primary-color, #4f46e5);
   font-weight: 600;
-  font-family: 'Roboto Mono', monospace;
+  margin-left: 3rem;
+
 }
 
 .connect-button, .disconnect-button {
@@ -166,5 +167,73 @@
   
   .confirm-button, .cancel-button {
     padding: 0.6rem 1rem;
+  }
+}
+
+/* Safari Warning Styles */
+.safari-warning-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.safari-warning {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.safari-warning h3 {
+  color: #2b2d42;
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+}
+
+.safari-warning p {
+  color: #4a4e69;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.safari-warning-button {
+  background: #4361ee;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.safari-warning-button:hover {
+  background: #3a56c8;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .safari-warning {
+      margin: 20px;
+      padding: 20px;
+  }
+  
+  .safari-warning h3 {
+      font-size: 1.2rem;
+  }
+  
+  .safari-warning-button {
+      width: 100%;
+      padding: 12px 0;
   }
 }

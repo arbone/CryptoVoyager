@@ -27,7 +27,7 @@
     font-weight: 600;
     color: var(--primary-color);
     text-decoration: none;
-    margin-left: 30px;
+    margin-left: 0rem;
   }
 
   .navbar-logo:hover {
