@@ -200,13 +200,7 @@ const ProductDetail = () => {
         <div className="product-detail-modal-overlay">
           <div className="product-detail-modal-content">
             <div className="product-detail-modal-header">
-              <div className="product-detail-modal-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#f97316">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v2h-2v-2zm0-12h2v10h-2V5z"/>
-                </svg>
-              </div>
               <h2>Conferma la tua esperienza</h2>
-              <p className="product-detail-modal-subtitle">Stai per prenotare un'avventura indimenticabile</p>
             </div>
             
             <div className="product-detail-modal-summary">
@@ -231,11 +225,6 @@ const ProductDetail = () => {
             <div className="product-detail-modal-total">
               <span>Totale da pagare:</span>
               <span className="product-detail-modal-total-amount">{totalPrice} ETH</span>
-            </div>
-
-            <div className="product-detail-modal-wallet">
-              <span>Wallet utilizzato:</span>
-              <span>{account}</span>
             </div>
 
             <div className="product-detail-modal-actions">
